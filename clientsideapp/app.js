@@ -7,10 +7,13 @@ var bodyParser = require('body-parser');
 var stylus = require('stylus');
 
 var index = require('./routes/index');
+var agent = require('./routes/agent');
+var customer = require('./routes/customer');
+var ejs = require('ejs');
 
 var app = express();
 
-app.engine('html', require('ejs').renderFile);
+app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
@@ -23,6 +26,8 @@ app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'));
 
 app.use('/', index);
+app.use('/agent', agent);
+app.use('/customer', customer);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

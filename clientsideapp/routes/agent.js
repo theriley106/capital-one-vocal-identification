@@ -4,9 +4,6 @@ const request = require('request');
 var https = require("https");
 var url = require('url');
 
-exports.index = function(req, res){
-res.render('agent', { title: 'ejs' });};
-
 /**
  * Renders a GET request to the main page.
  */
@@ -17,23 +14,10 @@ router.get('/', function(req, resp, next) {
   resp.render(
     'agent',
     {
-      title: 'C1 Translate App',
+      title: 'C1 Agent',
       //data: results
     }
   );
 });
-
-// router.get('/login', function(req, resp, next) {
-//   var url_parts = url.parse(req.url, true);
-//   var query = url_parts.query;
-
-//   resp.render(
-//     'login',
-//     {
-//       title: 'C1 Translate App',
-//       //data: results
-//     }
-//   );
-// });
 
 module.exports = router;
