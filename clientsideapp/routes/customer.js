@@ -3,11 +3,16 @@ var router = express.Router();
 const request = require('request');
 var https = require("https");
 var url = require('url');
+var io = require('socket.io')(https);
 
 //const record = require('node-record-lpcm16');
 
 // Imports the Google Cloud client library
 //const speech = require('@google-cloud/speech');
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+});
 
 /**
  * Renders a GET request to the main page.
