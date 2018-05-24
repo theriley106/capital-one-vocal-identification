@@ -80,6 +80,15 @@ function testSpeech() {
   recognition.onend = function(event) {
       //Fired when the speech recognition service has disconnected.
       transcript = outputPara.textContent + '. ';
+      var xhr=new XMLHttpRequest();
+      xhr.open('post',"192.168.12.10:5000",true);
+      //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");<--don't do this
+      var formData=new FormData(form);
+      formData.append('info',transcript);    // makes no difference
+      xhr.send(formData);
+      xhr.onload=function() {
+          alert(this.response);
+      };
       console.log('SpeechRecognition.onend');
   }
 
