@@ -24,6 +24,7 @@ def submitSpeech():
 		tempDict['new_text'] = vocal.translateText(text, language)
 		tempDict['language'] = language
 		tempDict['sentiment'] = analytics.getSentiment(text)
+		tempDict['keywords'] = analytics.getKeywords(text)
 		end = time.time()
 		tempDict['time_elapsed'] = (end - start)
 		return jsonify(tempDict)
