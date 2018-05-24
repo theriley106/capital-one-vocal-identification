@@ -13,7 +13,7 @@ def index():
 @app.route('/submitSpeech', methods=['POST'])
 def submitSpeech():
 	start = time.time()
-	language = "ES"
+	language = "EN"
 	tempDict = {}
 	if 'text' in request.form:
 		text = request.form['text']
@@ -26,7 +26,7 @@ def submitSpeech():
 		tempDict['original_text'] = text
 		tempDict['new_text'] = vocal.translateText(text, language)
 		tempDict['sentiment'] = analytics.getSentiment(text)
-		tempDict['keywords'] = analytics.getKeywords(text)
+		tempDict['keywords'] = analytics.getKeywords(tempDict['new_text'])
 		tempDict['verbosity'] = float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))
 		end = time.time()
 		tempDict['time_elapsed'] = (end - start)
