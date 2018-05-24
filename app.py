@@ -13,7 +13,8 @@ def index():
 def submitSpeech():
 	start = time.time()
 	language = "ES"
-	if request.form['text']:
+	tempDict = {}
+	if 'text' in request.form:
 		text = request.form['text']
 		tempDict = {}
 		tempDict['success'] = True
@@ -30,7 +31,7 @@ def submitSpeech():
 		tempDict['message'] = "Request failed - Are you sure you added form data?"
 		end = time.time()
 		tempDict['time_elapsed'] = (end - start)
-		return jsonify({"status": "404"})
+		return jsonify(tempDict)
 
 if __name__ == '__main__':
 	app.run(host='127.0.0.1', port=5000)
