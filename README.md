@@ -6,3 +6,4 @@ All commands run witin the `clientsideapp` directory.
 
 - Type `npm install` to install the dependencies.
 - Start the server by typing `nodemon --exec npm start`.
+- Navigate to `localhost:3000` in your web browser to view.
