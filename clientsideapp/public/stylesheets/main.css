@@ -9,12 +9,12 @@ body{
 }
 
 #record{
-  margin-top: 5%;
-  text-align: center;
+  margin-top: 1.5%;
+  text-align: center;   
 }
 
 #record p{
-  margin-top: 2.5%;
+  margin-top: 1%;
   font-size: 1em;
 }
 
@@ -56,12 +56,32 @@ header{
 }
 
 .text-field{
-  margin-top: 5%;
+  margin-top: 1.5%;
   margin-left: 25%;
   margin-right: 25%;
 }
 
-#account-information{
+.tabs{
+  margin-top: 2.5%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.list-group-horizontal .list-group-item {
+    display: inline-block;
+}
+.list-group-horizontal .list-group-item {
+	margin-bottom: 0;
+	margin-left:-4px;
+	margin-right: 0;
+}
+.list-group-horizontal .list-group-item:first-child {
+	border-top-right-radius:0;
+	border-bottom-left-radius:4px;
+}
+.list-group-horizontal .list-group-item:last-child {
+	border-top-right-radius:4px;
+	border-bottom-left-radius:0;
 }
 
 .list-group-item{
@@ -70,12 +90,4 @@ header{
 
 .list-text{
   margin-left: 7.5px;
-}
-
-#last-charges{
-  text-align: center;
-  font-size: 1.25em;
-  font-weight: bold;
-  color: red;
-  margin-top: 3.5%;
 }
