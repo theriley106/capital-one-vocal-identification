@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect, Markup, jsonify, make_response, send_from_directory, session
+import vocal
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -9,7 +10,16 @@ def index():
 
 @app.route('/submitSpeech', methods=['POST'])
 def submitSpeech():
-	return jsonify(request.form)
+	language = "ES"
+	if request.form['text']:
+		request.form['text'][::-1]
+		text = request.form['text']
+		newText = request.form['text'][::-1]
+		newText = vocal.translateText(text, language)
+
+		return jsonify({"Text": text, "newText": newText})
+	else:
+		return jsonify({"status": "404"})
 
 if __name__ == '__main__':
 	app.run(host='127.0.0.1', port=5000)
