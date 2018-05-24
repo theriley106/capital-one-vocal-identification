@@ -4,6 +4,9 @@ const request = require('request');
 var https = require("https");
 var url = require('url');
 
+exports.index = function(req, res){
+res.render('index', { title: 'ejs' });};
+
 /**
  * Renders a GET request to the main page.
  */
