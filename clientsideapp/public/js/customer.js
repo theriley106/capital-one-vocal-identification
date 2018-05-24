@@ -6,7 +6,10 @@ var phrasePara = document.querySelector('.phrase');
 var resultPara = document.querySelector('.result');
 var diagnosticPara = document.querySelector('.output');
 
-var testBtn = document.querySelector('button');
+var testBtn = document.querySelector('#number1');
+var stopBtn = document.querySelector('#number2');
+
+var recurse = true;
 
 function updateText(text) {
   document.getElementsByClassName("phrase")[0].innerHTML = text;
@@ -22,14 +25,15 @@ function testSpeech() {
 
   var recognition = new SpeechRecognition();
   var speechRecognitionList = new SpeechGrammarList();
+
   recognition.grammars = speechRecognitionList;
-  recognition.lang = 'hi';
-  recognition.interimResults = false;
+  recognition.lang = 'en';
+  recognition.interimResults = true;
   recognition.maxAlternatives = 1;
 
   recognition.start();
 
-  recognition.onresult = function(event) {
+  recognition.onresult = function() {
     // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
     // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
     // It has a getter so it can be accessed like an array
@@ -41,14 +45,20 @@ function testSpeech() {
     var speechResult = event.results[0][0].transcript;
     diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
 
-    updateText(speechResult);
+    console.log(speechResult);
   }
-
   recognition.onspeechend = function() {
     recognition.stop();
     testBtn.disabled = false;
     testBtn.textContent = 'Start new test';
-  }
+    stopBtn.onclick = function(){
+        recurse = false;
+        console.log("Finally it stopped!");
+    }
+    if(recurse){
+        testSpeech();
+    }
+}
 
   recognition.onerror = function(event) {
     testBtn.disabled = false;
