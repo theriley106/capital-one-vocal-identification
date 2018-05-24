@@ -5,7 +5,7 @@ var https = require("https");
 var url = require('url');
 
 exports.index = function(req, res){
-res.render('index', { title: 'ejs' });};
+res.render('agent', { title: 'ejs' });};
 
 /**
  * Renders a GET request to the main page.
@@ -15,7 +15,7 @@ router.get('/', function(req, resp, next) {
   var query = url_parts.query;
 
   resp.render(
-    'index',
+    'agent',
     {
       title: 'C1 Translate App',
       //data: results
