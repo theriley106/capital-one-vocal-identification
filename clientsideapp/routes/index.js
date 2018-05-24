@@ -15,6 +15,19 @@ router.get('/', function(req, resp, next) {
   var query = url_parts.query;
 
   resp.render(
+    'login',
+    {
+      title: 'C1 Translate App',
+      //data: results
+    }
+  );
+});
+
+router.get('/agent', function(req, resp, next) {
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+
+  resp.render(
     'agent',
     {
       title: 'C1 Translate App',
@@ -23,12 +36,12 @@ router.get('/', function(req, resp, next) {
   );
 });
 
-router.get('/login', function(req, resp, next) {
+router.get('/signup', function(req, resp, next) {
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;
 
   resp.render(
-    'login',
+    'signup',
     {
       title: 'C1 Translate App',
       //data: results
