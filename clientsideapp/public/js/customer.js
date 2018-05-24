@@ -5,7 +5,6 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 var outputPara = document.querySelector('#output');
 
 var startBtn = document.querySelector('#start-button');
-var stopBtn = document.querySelector('#stop-button');
 
 var recurse = true;
 
@@ -51,13 +50,15 @@ function testSpeech() {
     recognition.stop();
     startBtn.disabled = false;
     startBtn.textContent = 'Start new test';
-    stopBtn.onclick = function(){
+    startBtn.onclick = function(){
         recurse = false;
         console.log("Finally it stopped!");
+        startBtn.disabled = true;
     }
     if(recurse){
         testSpeech();
     }
+
 }
 
   recognition.onerror = function(event) {
