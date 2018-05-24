@@ -9,10 +9,11 @@ var stylus = require('stylus');
 var index = require('./routes/index');
 var agent = require('./routes/agent');
 var customer = require('./routes/customer');
+var ejs = require('ejs');
 
 var app = express();
 
-app.engine('html', require('ejs').renderFile);
+app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
