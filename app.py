@@ -28,6 +28,8 @@ def submitSpeech():
 		tempDict['sentiment'] = analytics.getSentiment(text)
 		tempDict['keywords'] = analytics.getKeywords(tempDict['new_text'])
 		tempDict['verbosity'] = float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))
+		tempDict['word_count'] = len(text.split(" "))
+		tempDict['new_word_count'] = len(tempDict['new_text'].split(" "))
 		end = time.time()
 		tempDict['time_elapsed'] = (end - start)
 		return jsonify(tempDict)
