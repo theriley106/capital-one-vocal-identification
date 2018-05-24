@@ -1,71 +1,109 @@
-var express = require('express');
-var router = express.Router();
-const request = require('request');
-var https = require("https");
-var url = require('url');
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-const record = require('node-record-lpcm16');
+var phrasePara = document.querySelector('.phrase');
+var resultPara = document.querySelector('.result');
+var diagnosticPara = document.querySelector('.output');
 
-// Imports the Google Cloud client library
-const speech = require('@google-cloud/speech');
+var testBtn = document.querySelector('#number1');
+var stopBtn = document.querySelector('#number2');
 
-/**
- * Renders a GET request to the main page.
- */
-router.get('/', function(req, resp, next) {
-  var url_parts = url.parse(req.url, true);
-  var query = url_parts.query;
+var recurse = true;
 
-  // Creates a client
-  const client = new speech.SpeechClient();
+function updateText(text) {
+  document.getElementsByClassName("phrase")[0].innerHTML = text;
+}
 
-  const encoding = 'LINEAR16';
-  const sampleRateHertz = 16000;
-  const languageCode = 'en-US';
+function testSpeech() {
+  testBtn.disabled = true;
+  testBtn.textContent = 'Test in progress';
 
-  const request = {
-    config: {
-      encoding: encoding,
-      sampleRateHertz: sampleRateHertz,
-      languageCode: languageCode,
-    },
-    interimResults: false, // If you want interim results, set this to true
-  };
+  resultPara.textContent = 'Right or wrong?';
+  resultPara.style.background = 'rgba(0,0,0,0.2)';
+  diagnosticPara.textContent = '...diagnostic messages';
 
-  // Create a recognize stream
-  const recognizeStream = client
-    .streamingRecognize(request)
-    .on('error', console.error)
-    .on('data', data =>
-      process.stdout.write(
-        data.results[0] && data.results[0].alternatives[0]
-          ? `Transcription: ${data.results[0].alternatives[0].transcript}\n`
-          : `\n\nReached transcription time limit, press Ctrl+C\n`
-      )
-    );
+  var recognition = new SpeechRecognition();
+  var speechRecognitionList = new SpeechGrammarList();
 
-  // Start recording and send the microphone input to the Speech API
-  record
-    .start({
-      sampleRateHertz: sampleRateHertz,
-      threshold: 0,
-      // Other options, see https://www.npmjs.com/package/node-record-lpcm16#options
-      verbose: true,
-      recordProgram: 'rec', // Try also "arecord" or "sox"
-      silence: '10.0',
-    })
-    .on('error', console.error)
-    .pipe(recognizeStream);
+  recognition.grammars = speechRecognitionList;
+  recognition.lang = 'en';
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
 
-  console.log('Listening, press Ctrl+C to stop.');
+  recognition.start();
 
-  resp.render(
-    'customer',
-    {
-      title: 'C1 Customer',
-      //data: results
+  recognition.onresult = function() {
+    // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+    // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+    // It has a getter so it can be accessed like an array
+    // The first [0] returns the SpeechRecognitionResult at position 0.
+    // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+    // These also have getters so they can be accessed like arrays.
+    // The second [0] returns the SpeechRecognitionAlternative at position 0.
+    // We then return the transcript property of the SpeechRecognitionAlternative object
+    var speechResult = event.results[0][0].transcript;
+    diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
+
+    console.log(speechResult);
+  }
+  recognition.onspeechend = function() {
+    recognition.stop();
+    testBtn.disabled = false;
+    testBtn.textContent = 'Start new test';
+    stopBtn.onclick = function(){
+        recurse = false;
+        console.log("Finally it stopped!");
     }
-  );
-});
+    if(recurse){
+        testSpeech();
+    }
+}
 
-module.exports = router;
+  recognition.onerror = function(event) {
+    testBtn.disabled = false;
+    testBtn.textContent = 'Start new test';
+    diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
+  }
+
+  recognition.onaudiostart = function(event) {
+      //Fired when the user agent has started to capture audio.
+      console.log('SpeechRecognition.onaudiostart');
+  }
+
+  recognition.onaudioend = function(event) {
+      //Fired when the user agent has finished capturing audio.
+      console.log('SpeechRecognition.onaudioend');
+  }
+
+  recognition.onend = function(event) {
+      //Fired when the speech recognition service has disconnected.
+      console.log('SpeechRecognition.onend');
+  }
+
+  recognition.onnomatch = function(event) {
+      //Fired when the speech recognition service returns a final result with no significant recognition. This may involve some degree of recognition, which doesn't meet or exceed the confidence threshold.
+      console.log('SpeechRecognition.onnomatch');
+  }
+
+  recognition.onsoundstart = function(event) {
+      //Fired when any sound � recognisable speech or not � has been detected.
+      console.log('SpeechRecognition.onsoundstart');
+  }
+
+  recognition.onsoundend = function(event) {
+      //Fired when any sound � recognisable speech or not � has stopped being detected.
+      console.log('SpeechRecognition.onsoundend');
+  }
+
+  recognition.onspeechstart = function (event) {
+      //Fired when sound that is recognised by the speech recognition service as speech has been detected.
+      console.log('SpeechRecognition.onspeechstart');
+  }
+  recognition.onstart = function(event) {
+      //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
+      console.log('SpeechRecognition.onstart');
+  }
+}
+
+testBtn.addEventListener('click', testSpeech);
