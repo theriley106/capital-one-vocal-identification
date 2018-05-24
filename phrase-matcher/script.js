@@ -19,7 +19,7 @@ function testSpeech() {
   var recognition = new SpeechRecognition();
   var speechRecognitionList = new SpeechGrammarList();
   recognition.grammars = speechRecognitionList;
-  recognition.lang = 'en-US';
+  recognition.lang = 'hi';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
