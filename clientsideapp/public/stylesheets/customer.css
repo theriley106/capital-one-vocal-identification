@@ -16,7 +16,7 @@
 }
 
 .mic{
-    border-radius: 360px;
+    border-radius: 50%;
     background: #4286f4;
     text-align: center;
     padding: 20px 20px;
@@ -38,4 +38,13 @@
     min-width: 65px;
     min-height: 35px;
     margin: auto;
+}
+
+#language-selection{
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+
+#output{
+    text-align: center;
 }
