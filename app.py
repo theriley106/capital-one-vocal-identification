@@ -25,9 +25,9 @@ def submitSpeech():
 		tempDict['message'] = "Hello from the software engineering summit!"
 		tempDict['original_text'] = text
 		tempDict['new_text'] = vocal.translateText(text, language)
-		tempDict['sentiment'] = analytics.getSentiment(text)
+		tempDict['sentiment'] = float("{0:.2f}".format(analytics.getSentiment(text))
 		tempDict['keywords'] = analytics.getKeywords(tempDict['new_text'])
-		tempDict['verbosity'] = float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))
+		tempDict['verbosity'] = float("{0:.2f}".format(float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))))
 		tempDict['word_count'] = len(text.split(" "))
 		tempDict['new_word_count'] = len(tempDict['new_text'].split(" "))
 		end = time.time()
