@@ -41,7 +41,7 @@ function testSpeech() {
     var speechResult = event.results[0][0].transcript;
     diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
 
-    updateText(speechResult);
+    updateText(String(speechResult));
   }
 
   recognition.onspeechend = function() {
