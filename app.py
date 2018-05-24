@@ -18,13 +18,16 @@ def submitSpeech():
 	if 'text' in request.form:
 		text = request.form['text']
 		tempDict = {}
+		languageInfo = vocal.getLanguage(text)
+		tempDict['language'] = languageInfo.lang
+		tempDict['language_confidence'] = languageInfo.confidence
 		tempDict['success'] = True
 		tempDict['message'] = "Hello from the software engineering summit!"
 		tempDict['original_text'] = text
 		tempDict['new_text'] = vocal.translateText(text, language)
-		tempDict['language'] = language
 		tempDict['sentiment'] = analytics.getSentiment(text)
 		tempDict['keywords'] = analytics.getKeywords(text)
+		tempDict['verbosity'] = float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))
 		end = time.time()
 		tempDict['time_elapsed'] = (end - start)
 		return jsonify(tempDict)
