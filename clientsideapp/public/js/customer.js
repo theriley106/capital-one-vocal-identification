@@ -2,36 +2,35 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-var phrasePara = document.querySelector('.phrase');
-var resultPara = document.querySelector('.result');
-var diagnosticPara = document.querySelector('.output');
+var outputPara = document.querySelector('#output');
 
-var testBtn = document.querySelector('#number1');
-var stopBtn = document.querySelector('#number2');
+var startBtn = document.querySelector('#start-button');
+var stopBtn = document.querySelector('#stop-button');
 
 var recurse = true;
+
+var transcript = '';
 
 function updateText(text) {
   document.getElementsByClassName("phrase")[0].innerHTML = text;
 }
 
 function testSpeech() {
-  testBtn.disabled = true;
-  testBtn.textContent = 'Test in progress';
-
-  resultPara.textContent = 'Right or wrong?';
-  resultPara.style.background = 'rgba(0,0,0,0.2)';
-  diagnosticPara.textContent = '...diagnostic messages';
-
+  startBtn.disabled = true;
+  startBtn.textContent = 'Test in progress';
+  var language = document.getElementById("langSelect").value;
   var recognition = new SpeechRecognition();
   var speechRecognitionList = new SpeechGrammarList();
 
   recognition.grammars = speechRecognitionList;
-  recognition.lang = 'en';
+  recognition.lang = language;
+  console.log(language);
   recognition.interimResults = true;
   recognition.maxAlternatives = 1;
 
   recognition.start();
+  var speechResult = [];
+  var increment = -1;
 
   recognition.onresult = function() {
     // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
@@ -42,15 +41,16 @@ function testSpeech() {
     // These also have getters so they can be accessed like arrays.
     // The second [0] returns the SpeechRecognitionAlternative at position 0.
     // We then return the transcript property of the SpeechRecognitionAlternative object
-    var speechResult = event.results[0][0].transcript;
-    diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
-
+    speechResult.push(event.results[0][0].transcript);
+    increment = increment + 1;
+    outputPara.textContent = transcript + ' ' + speechResult[increment] + ' ';
     console.log(speechResult);
   }
   recognition.onspeechend = function() {
+    outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';
     recognition.stop();
-    testBtn.disabled = false;
-    testBtn.textContent = 'Start new test';
+    startBtn.disabled = false;
+    startBtn.textContent = 'Start new test';
     stopBtn.onclick = function(){
         recurse = false;
         console.log("Finally it stopped!");
@@ -61,9 +61,9 @@ function testSpeech() {
 }
 
   recognition.onerror = function(event) {
-    testBtn.disabled = false;
-    testBtn.textContent = 'Start new test';
-    diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
+    startBtn.disabled = false;
+    startBtn.textContent = 'Start new test';
+    outputPara.textContent = 'Call Timed Out:' + event.error;
   }
 
   recognition.onaudiostart = function(event) {
@@ -78,6 +78,7 @@ function testSpeech() {
 
   recognition.onend = function(event) {
       //Fired when the speech recognition service has disconnected.
+      transcript = outputPara.textContent + '. ';
       console.log('SpeechRecognition.onend');
   }
 
@@ -106,4 +107,4 @@ function testSpeech() {
   }
 }
 
-testBtn.addEventListener('click', testSpeech);
+startBtn.addEventListener('click', testSpeech);
