@@ -45,11 +45,7 @@ function testSpeech() {
     var speechResult = event.results[0][0].transcript;
     diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
 
-<<<<<<< HEAD
-    updateText(String(speechResult));
-=======
     console.log(speechResult);
->>>>>>> 3e4ccb0e22c3068b52af21630aa3dfd70b1a0cb2
   }
   recognition.onspeechend = function() {
     recognition.stop();
