@@ -1,44 +1,69 @@
 <html>
 
     <head>
-         <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="/stylesheets/style.css">
+      <title>Globe</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+      <link rel="icon" type="image/png" sizes="32x32" href="//cdn.shopify.com/s/files/1/1765/5971/t/10/assets/favicon-32x32.png?9610605222100492220">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="stylesheets/login.css"/>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script>
+        //function validateForm() {
+        //    var email = document.forms["login_form"]["email_field"].value;
+        //    var password = document.forms["login_form"]["password_field"].value;
+        //    if (email == "" || password == "") {
+        //        alert("Please fill out all the fields");
+        //        return false;
+        //    }
+        //}
+      </script>
     </head>
 
     <body>
-        <div class = "well container">
-            <h1 align = "center"> Assistance portal</h1>
-            <br />
-            <h3 align ="center">We support multiple langage support with real time translation</h3>
-            <div class = "signup_form">
-                    <div class = "centered">
-        <div>name
-            <input type="text" name="name_field" />
-        </div>
-        <br />
-        <div>
-        phone number
-                <input type="text" class="input-medium bfh-phone">
-        </div>
-        <br />
-        <div>
-        email
-                <input type="text" name = "email_field">
-        </div>
-        <br />
-        <div>
-            <a href = "signup.html"  role="button" class="btn btn-primary">Sign Up</a>
-        </div>
-        </div>
-        </div>
-        </div>
-    </body>
+      <header>
+        <img id="logo" src="https://2.bp.blogspot.com/-wA7H0iOgUgM/VtSymS91sfI/AAAAAAAAA1U/UEtXfoDg8j0/s1600/day_globe_75fr_125ms.gif">
+        <div id="main-header" class="align-middle">Global</div>
+        <div id="secondary-header">Connecting customers from around the world with outstanding support</div>
+      </header>
 
+      <form id="login">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputPassword4">Password</label>
+            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputAddress">Address</label>
+          <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputCity">City</label>
+            <input type="text" class="form-control" id="inputCity">
+          </div>
+          <div class="form-group col-md-4">
+            <label for="inputState">State</label>
+            <select id="inputState" class="form-control">
+              <option selected>Choose...</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="form-group col-md-2">
+            <label for="inputZip">Zip</label>
+            <input type="text" class="form-control" id="inputZip">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-button"><a href="agent">Sign Up</a></button>
+      </form>
+    </body>
 </html>
