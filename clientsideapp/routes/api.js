@@ -11,13 +11,9 @@ router.post('/send-data', function(req, resp, next) {
   var url_parts = url.parse(req.url, true);
   var query = url_parts.query;
 
-  resp.render(
-    'customer',
-    {
-      title: 'C1 Customer',
-      //data: results
-    }
-  );
+  
+
+  resp.send();
 });
 
 module.exports = router;
