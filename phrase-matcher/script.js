@@ -8,6 +8,10 @@ var diagnosticPara = document.querySelector('.output');
 
 var testBtn = document.querySelector('button');
 
+function updateText(text) {
+  document.getElementsByClassName("phrase")[0].innerHTML = text;
+}
+
 function testSpeech() {
   testBtn.disabled = true;
   testBtn.textContent = 'Test in progress';
@@ -37,7 +41,7 @@ function testSpeech() {
     var speechResult = event.results[0][0].transcript;
     diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
 
-    console.log(speechResult);
+    updateText(speechResult);
   }
 
   recognition.onspeechend = function() {
