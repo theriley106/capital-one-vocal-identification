@@ -9,23 +9,20 @@
 
 #customer-pic{
     padding-top: 20px;
-    max-height:150px;
+    padding-bottom: 20px;
+    max-height:200px;
     max-width:150px;
     align-content:center;
 }
 
 .mic{
-    border-radius: 200px;
+    border-radius: 360px;
     background: #4286f4;
     text-align: center;
-    border: none;
     padding: 20px 20px;
     color: #ffffff;
 }
 
-.mic :active{
-    color: #fbff00;
-}
 
 #language-selection{
     text-align:center;
@@ -35,4 +32,10 @@
 #call-button{
     padding-top: 40px;
     padding-bottom: 40px;
+}
+
+#call-status{
+    min-width: 65px;
+    min-height: 35px;
+    margin: auto;
 }

@@ -6,6 +6,8 @@ var outputPara = document.querySelector('#output');
 
 var startBtn = document.querySelector('#start-button');
 
+var callStatus = document.querySelector('#call-status');
+
 var recurse = true;
 
 var transcript = '';
@@ -16,7 +18,8 @@ function updateText(text) {
 
 function testSpeech() {
   startBtn.disabled = true;
-  startBtn.textContent = 'Test in progress';
+  callStatus.innerHTML = "End Call";
+//   startBtn.textContent = 'Test in progress';
   var language = document.getElementById("langSelect").value;
   var recognition = new SpeechRecognition();
   var speechRecognitionList = new SpeechGrammarList();
@@ -49,9 +52,10 @@ function testSpeech() {
     outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';
     recognition.stop();
     startBtn.disabled = false;
-    startBtn.textContent = 'Start new test';
+    // startBtn.textContent = 'Start new test';
     startBtn.onclick = function(){
         recurse = false;
+        callStatus.innerHTML = "Start Call";
         console.log("Finally it stopped!");
         startBtn.disabled = true;
     }
@@ -63,8 +67,8 @@ function testSpeech() {
 
   recognition.onerror = function(event) {
     startBtn.disabled = false;
-    startBtn.textContent = 'Start new test';
-    outputPara.textContent = 'Call Timed Out:' + event.error;
+    // startBtn.textContent = 'Start new test';
+    // outputPara.textContent = 'Call Timed Out:' + event.error;
   }
 
   recognition.onaudiostart = function(event) {
