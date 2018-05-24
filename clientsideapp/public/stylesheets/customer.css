@@ -1,0 +1,38 @@
+#content{
+    font-family: 'Roboto', sans-serif;
+}
+
+#customer-id{
+    font-size: 50px;
+    text-align: center;
+}
+
+#customer-pic{
+    padding-top: 20px;
+    max-height:150px;
+    max-width:150px;
+    align-content:center;
+}
+
+.mic{
+    border-radius: 200px;
+    background: #4286f4;
+    text-align: center;
+    border: none;
+    padding: 20px 20px;
+    color: #ffffff;
+}
+
+.mic :active{
+    color: #fbff00;
+}
+
+#language-selection{
+    text-align:center;
+    align-content:center;
+}
+
+#call-button{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
