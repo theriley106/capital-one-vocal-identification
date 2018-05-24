@@ -10,30 +10,43 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<script>
+        //function validateForm() {
+        //    var email = document.forms["login_form"]["email_field"].value;
+        //    var password = document.forms["login_form"]["password_field"].value;
+        //    if (email == "" || password == "") {
+        //        alert("Please fill out all the fields");
+        //        return false;
+        //    }
+        //}
+</script>
+
     </head>
 
     <body>
-        <div class = "well container-fluid">
+        
             <h1 align = "center"> Assistance portal</h1>
             <br />
             <h3 align ="center">We support multiple language support with real time translation</h3>
-            <div class = "login_form well">
+            <form name = "login_form">
+            <div class = "well align-middle">
        email
-            <input type="text" name="email_field" />
+            <input type="text" id="email_field" name = "email_field"/>
         
         <br />
         <span>password
-            <input type="password" name="password_field" />
+            <input type="password" id="password_field" name="password_field" />
         </span>
         <br />
         <span>
-                <a href = ""  role="button" class="btn btn-success">Sign In</a>
-        
-                <a href = "signup.html"  role="button" class="btn btn-primary">Sign Up</a>
+                <!-- <button onClick = "validateForm()" href = "agent">Sign in</button> -->
+                <a href = "agent"  role="button" class="btn btn-success">Sign In</a>
+                <a href = "signup"  role="button" class="btn btn-primary">Sign Up</a>
             </span>
         
         </div>
-        </div>
+        </form>
+        
     </body>
 
 </html>
