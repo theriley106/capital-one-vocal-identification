@@ -1,0 +1,57 @@
+body{
+  font-size: 12px;
+}
+
+#main-header{
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2em;
+  display: inline-block;
+}
+
+#secondary-header{
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.2em;
+  margin-top: 15px;
+}
+
+#logo{
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+}
+
+#login{
+  margin-right: 25%;
+  margin-left: 25%;
+  margin-top: 10%;
+}
+
+button a{
+  color: white;
+  text-decoration: none;
+}
+
+button a:hover{
+  text-decoration: none;
+  color: white;
+}
+
+#submit-button{
+  margin-right: 10px;
+}
+
+#buttons{
+  margin-top: 10%;
+}
+
+header{
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 12.5px;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
