@@ -1,0 +1,21 @@
+{
+    "keywords": [
+        "really busy today",
+        "work quickly",
+        "work properly",
+        "credit card",
+        "working",
+        "need"
+    ],
+    "language": "hi",
+    "language_confidence": 1,
+    "message": "Hello from the software engineering summit!",
+    "new_text": "My credit card is not working. I am really busy today and I need to work quickly and work properly",
+    "new_word_count": 20,
+    "original_text": "मेरा क्रेडिट कार्ड काम नहीं कर रहा है। मैं आज वास्तव में व्यस्त हूं और मुझे जल्दी से काम करने और इसे ठीक से काम करने की आवश्यकता है",
+    "sentiment": 0,
+    "success": true,
+    "time_elapsed": 0.14658188819885254,
+    "verbosity": 0.38,
+    "word_count": 29
+}
