@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect, Markup, jsonify, make_response, send_from_directory, session
 import vocal
 import time
+import analytics
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -12,17 +13,21 @@ def index():
 @app.route('/submitSpeech', methods=['POST'])
 def submitSpeech():
 	start = time.time()
-	language = "ES"
+	language = "EN"
 	tempDict = {}
 	if 'text' in request.form:
 		text = request.form['text']
 		tempDict = {}
+		languageInfo = vocal.getLanguage(text)
+		tempDict['language'] = languageInfo.lang
+		tempDict['language_confidence'] = languageInfo.confidence
 		tempDict['success'] = True
 		tempDict['message'] = "Hello from the software engineering summit!"
 		tempDict['original_text'] = text
 		tempDict['new_text'] = vocal.translateText(text, language)
-		tempDict['language'] = language
-
+		tempDict['sentiment'] = analytics.getSentiment(text)
+		tempDict['keywords'] = analytics.getKeywords(tempDict['new_text'])
+		tempDict['verbosity'] = float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))
 		end = time.time()
 		tempDict['time_elapsed'] = (end - start)
 		return jsonify(tempDict)
