@@ -15,3 +15,4 @@ def translateText(text, toLanguage):
 	translation = translator.translate(text, dest=toLanguage)
 	# .to_dict or .text work with this object
 	return translation.text
+

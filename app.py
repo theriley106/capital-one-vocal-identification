@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect, Markup, jsonify, make_response, send_from_directory, session
 import vocal
 import time
+import analytics
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -22,7 +23,7 @@ def submitSpeech():
 		tempDict['original_text'] = text
 		tempDict['new_text'] = vocal.translateText(text, language)
 		tempDict['language'] = language
-
+		tempDict['sentiment'] = analytics.getSentiment(text)
 		end = time.time()
 		tempDict['time_elapsed'] = (end - start)
 		return jsonify(tempDict)
