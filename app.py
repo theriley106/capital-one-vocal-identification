@@ -12,11 +12,10 @@ def index():
 def submitSpeech():
 	language = "ES"
 	if request.form['text']:
-		request.form['text'][::-1]
-		text = request.form['text']
-		newText = request.form['text'][::-1]
-		newText = vocal.translateText(text, language)
-
+		tempDict = {}
+		tempDict['original_text'] = request.form['text']
+		tempDict['new_text'] = vocal.translateText(text, language)
+		tempDict['language'] = language
 		return jsonify({"Text": text, "newText": newText})
 	else:
 		return jsonify({"status": "404"})
