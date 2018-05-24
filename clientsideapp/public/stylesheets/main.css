@@ -1,0 +1,66 @@
+body{
+  font-size: 12px;
+}
+
+#profile-picture{
+  height: 3.25em;
+  width: 3.25em;
+  margin-right: 15px;
+}
+
+#record{
+  margin-top: 5%;
+  text-align: center;
+}
+
+#record p{
+  margin-top: 2.5%;
+  font-size: 1.5em;
+}
+
+#microphone{
+  background-color: #4f92ff;
+  text-align: center;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  outline: none;
+}
+
+#microphone i{
+  font-size: 30px;
+  color: white;
+}
+
+#customer{
+  color:  #4f92ff;
+}
+
+#customer-language{
+  font-weight: lighter;
+}
+
+#customer, #customer-language{
+  display: inline-block;
+  font-size: 1.75em;
+}
+
+header{
+  display: inline-block;
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 17.5px;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
+
+.text-field{
+  margin-top: 5%;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+#account-information{
+  background-color: grey;
+}
