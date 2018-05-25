@@ -95,7 +95,7 @@ def generateUpdate():
 			print text
 			print languageVal
 			text = vocal.translateText(text, 'es')
-			partGenerateAudio(text)
+			partGenerateAudio(text, languageVal)
 			with open('updates.txt', 'w') as the_file:
 				the_file.write(text)
 			return jsonify({"success": True})
@@ -154,7 +154,7 @@ def generateAudio():
 		os.system('ls')
 	return allFiles
 
-def partGenerateAudio(text):
+def partGenerateAudio(text, languageVal='en'):
 	try:
 		os.system("rm *.mp3")
 		os.system("rm static/output.mp3")
@@ -163,7 +163,7 @@ def partGenerateAudio(text):
 	allFiles = {"audio_files": []}
 	for val in splitWords(text):
 		print re.sub(r'([^\s\w]|_)+', '', val)
-		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
+		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), languageVal))
 	if len(allFiles['audio_files']) == 1:
 		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
 	else:
