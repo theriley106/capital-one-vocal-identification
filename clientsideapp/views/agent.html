@@ -71,24 +71,21 @@
       </div>
     </div>
 
-
-    <div id="record" onclick="record()">
-      <button id="microphone">
-        <i class="fas fa-microphone"></i>
-      </button>
-      <p>Speak with the customer</p>
-    </div>
-
   <div id="translation" style="text-align:center; padding : 50px;" width = "400">
     <div id = "original_text" style=" padding : 10px; color:green;">
     </div>
-    <div>
-    <!--<button type = "submit" id = "translate" onclick="translate('En Capital One, no solo pensamos en grandes cosas: hacemos grandes cosas. Fuimos la primera compañía en desarrollar y ofrecer personalización masiva y personalización de productos de tarjetas de crédito, y hemos estado innovando implacablemente desde entonces. Hoy en día, somos una marca reconocida a nivel nacional, un banco de los 10 principales y un laboratorio científico en un viaje para convertirnos en una empresa líder de alta tecnología e innovadora digital que toca más de 65 millones de cuentas de clientes. Fundada por Richard Warbank, presidente y consejero delegado, Capital One ha aumentado a $ 22 mil millones en ingresos en poco más de 20 años.','en')" style=" padding : 10px;">Translate customer speech</button>-->
+    <div id="translated_text" style=" padding : 10px;">
     </div>
-      <div id="translated_text" style=" padding : 10px;">
+    <div id="callTimer" class="row justify-content-center">
+        <time>00:00:00</time>
+    </div>
+    <div id="record">
+      <button id="microphone">
+        <i class="fas fa-phone"></i>
+      </button>
+      <p id="call-status">Start call</p>
 
-      </div>
-
+    </div>
   </div>
 
     <script>
@@ -123,12 +120,8 @@
             type: 'GET',
             data: text
         }).done(function(resp){
-<<<<<<< HEAD
           document.getElementById("customer-language").innerHTML = ' - ' + resp.lang;
-          translate(resp.text,'hi')
-=======
           translate(resp.text, "en")
->>>>>>> f335fd04305967b5ffd6990aa384885d38bd9c0e
         });
       }
 
@@ -147,7 +140,6 @@
         //alert(this.response);
       });
     }
-
 
     </script>
   </body>
