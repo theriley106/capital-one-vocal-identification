@@ -23,10 +23,13 @@
     color: #ffffff;
 }
 
-
 #language-selection{
     text-align:center;
     align-content:center;
+}
+
+#mic-icon{
+    font-size: 30px;
 }
 
 #call-button{
