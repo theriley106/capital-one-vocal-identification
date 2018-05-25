@@ -58,14 +58,8 @@ header{
     border-radius: 50%;
     background: #1f9c25;
     text-align: center;
-    padding: 20px 20px;
     color: #ffffff;
     font-size: 20px;
-}
-
-#call-button{
-    padding-top: 40px;
-    padding-bottom: 40px;
 }
 
 #language-selection{
@@ -86,7 +80,7 @@ header{
 }
 
 #record{
-  margin-top: 1.5%;
+  margin-top: .25%;
   text-align: center;
 }
 
@@ -106,4 +100,9 @@ header{
 #microphone i{
   font-size: 30px;
   color: white;
+}
+
+#callTimer{
+    margin-top: 5%;
+    font-size: 25px;
 }

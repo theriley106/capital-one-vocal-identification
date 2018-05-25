@@ -6,6 +6,7 @@ import json
 import random
 from flask_cors import CORS
 from werkzeug.datastructures import ImmutableMultiDict
+import re
 
 
 COMMENTS = json.load(open("data.json"))
@@ -50,8 +51,8 @@ def submitSpeech():
 	tempDict['success'] = True
 	tempDict['message'] = "Hello from the software engineering summit!"
 	tempDict['original_text'] = text
-	tempDict['original_text_speech'] = vocal.generateURL(text, language)
 	tempDict['new_text'] = vocal.translateText(text, language)
+	tempDict['new_text_speech'] = vocal.generateURL(tempDict['new_text'], language)
 	tempDict['sentiment'] = float("{0:.2f}".format(analytics.getSentiment(text)))
 	tempDict['keywords'] = analytics.getKeywords(tempDict['new_text'])
 	tempDict['verbosity'] = float("{0:.2f}".format(float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))))
@@ -69,6 +70,7 @@ def generateComment():
 	tempDict['sentiment'] = float("{0:.2f}".format(analytics.getSentiment(text)))
 	tempDict['success'] = True
 	tempDict['message'] = "Hello from the software engineering summit!"
+	tempDict['new_text_speech'] = vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', text), 'en')
 	tempDict['sentiment'] = float("{0:.2f}".format(analytics.getSentiment(text)))
 	tempDict['keywords'] = analytics.getKeywords(text)
 	tempDict['verbosity'] = float("{0:.2f}".format(float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))))
