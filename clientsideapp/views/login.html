@@ -20,10 +20,10 @@
           var agent = document.getElementById("login").elements[3].checked;
           
           if(email != "" && password != "" && customer){
-            window.location = "http://localhost:9090/customer";
+            window.location += "customer";
           }
           else if(email != "" && password != "" && agent){
-            window.location = "http://localhost:9090/agent";
+            window.location += "agent";
           }
           
         }
