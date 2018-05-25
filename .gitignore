@@ -5,3 +5,4 @@ node_modules/
 api-key.json
 updates.txt
 *.mp3
+rawData.txt
