@@ -50,7 +50,7 @@ def submitSpeech():
 	tempDict['success'] = True
 	tempDict['message'] = "Hello from the software engineering summit!"
 	tempDict['original_text'] = text
-	tempDict['original_text_speech'] = vocal.generateURL(text, language)
+	tempDict['original_text_speech'] = vocal.generateURL(tempDict['new_text'], language)
 	tempDict['new_text'] = vocal.translateText(text, language)
 	tempDict['sentiment'] = float("{0:.2f}".format(analytics.getSentiment(text)))
 	tempDict['keywords'] = analytics.getKeywords(tempDict['new_text'])
