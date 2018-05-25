@@ -51,7 +51,12 @@
         </li>
         <li class="list-group-item">
           <h5 class="mb-1 d-inline-flex align-middle">Zip code: </h5>
-          <span class="list-text d-inline-flex align-middle">16046</span>
+          <span class="list-text d-iif(email != "" && password != "" && customer){
+            window.location = "http://localhost:9090/customer";
+          }
+          else if(email != "" && password != "" && agent){
+            window.location = "http://localhost:9090/agent";
+          }nline-flex align-middle">16046</span>
         </li>
       </ul>
     </div>
