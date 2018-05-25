@@ -95,7 +95,10 @@ function testSpeech() {
   }
 
   recognition.onend = function(event) {
-      var transcript = outputPara.textContent + '. | ' + lang.options[lang.selectedIndex].value;
+      if(document.getElementById("page-id").innerHTML == 'Hello World - Customer')
+        var transcript = outputPara.textContent + '. | hi';
+      if(document.getElementById("page-id").innerHTML == 'Hello World - Support')
+        var transcript = outputPara.textContent + '. | en';
       $.ajax({
           url: 'http://104.236.71.248:8000/updates',
           type: 'POST',
