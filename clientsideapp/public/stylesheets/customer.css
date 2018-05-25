@@ -114,3 +114,7 @@ body{
 #logo{
     max-height: 50px;
 }
+
+#sentiment{
+    text-align: center;
+}

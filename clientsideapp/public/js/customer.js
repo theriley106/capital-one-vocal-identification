@@ -19,12 +19,14 @@ var transcript = '';
 var sentimentCount = 0;
 var sentimentVal = 0;
 var avgSentiment = 0;
+var sentPara = document.querySelector('#sentiment');
 
 var lang = document.getElementById("langSelect");
 
 function updateText(text) {
   document.getElementsByClassName("phrase")[0].innerHTML = text;
 }
+
 
 function updateLang() {
     document.getElementById("customer-language").innerHTML = ' - ' + lang.options[lang.selectedIndex].text;
@@ -111,7 +113,8 @@ function testSpeech() {
           console.log(sentimentVal);
           console.log(sentimentCount);
           avgSentiment = sentimentVal/sentimentCount;
-          document.getElementsByClassName("sentiment")[0].innerHTML = avgSentiment;
+          sentPara.textContent = "Sentiment: " + avgSentiment.toFixed(2);
+
 
       });
       if(recurse){
