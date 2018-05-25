@@ -138,6 +138,9 @@ def saveMP3(mp3URL, fileName):
 		f.write(requests.get(mp3URL).content)
 	return mp3File
 
+@app.route('/audio/')
+def audio():
+    return url_for('static', filename='output.mp3')
 
 
 if __name__ == '__main__':
