@@ -7,6 +7,8 @@ import random
 from flask_cors import CORS
 from werkzeug.datastructures import ImmutableMultiDict
 import re
+import requests
+import os
 
 
 COMMENTS = json.load(open("data.json"))
@@ -96,6 +98,46 @@ def generateUpdate():
 		except Exception as exp:
 			print exp
 			return jsonify({"text": "", "success": True})
+
+def splitWords(string):
+	audioLength = 100
+	prevLen = 0
+	words = string
+	allVals = []
+	for i in range(10):
+		if len(words) > 5:
+			words = words[prevLen:]
+			newWord = words[:audioLength][::-1].strip().partition(' ')[2][::-1]
+			prevLen = len(newWord)
+			print newWord
+			if len(newWord) > 3:
+				allVals.append(newWord)
+	return allVals
+
+
+@app.route('/getAudio', methods=["POST"])
+def generateAudio():
+	allFiles = {"audio_files": []}
+	print str(request.form)
+	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition(")]")[0][:-1]
+	print text
+	for val in splitWords(text)[::-1]:
+		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
+	for i, val in enumerate(allFiles['audio_files']):
+		saveMP3(val, "{}.mp3".format(i))
+	os.system("mp3wrap output.mp3 *.mp3")
+	os.system("mv *MP3WRAP.mp3 static/output.mp3")
+	return jsonify(allFiles)
+
+def saveMP3(mp3URL, fileName):
+	#return MP3 file name
+	mp3File = '{}'.format(fileName)
+	#calls it a random file name to later delete
+	with open(mp3File, 'wb') as f:
+		#this saves the response locally as an actual mp3 file
+		f.write(requests.get(mp3URL).content)
+	return mp3File
+
 
 
 if __name__ == '__main__':
