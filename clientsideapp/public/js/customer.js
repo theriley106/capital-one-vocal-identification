@@ -1,6 +1,7 @@
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+var recognition = new SpeechRecognition();
 
 var outputPara = document.querySelector('#output');
 var startBtn = $('#microphone');
@@ -10,7 +11,7 @@ var callTimer = document.querySelector('#callTimer');
 
 var seconds = 0, minutes = 0, hours = 0, t;
 
-var recurse = true;
+var recurse = false;
 var isTranscribing = false;
 var transcript = '';
 
@@ -25,9 +26,6 @@ function updateLang() {
 }
 
 function testSpeech() {
-  startBtn.prop('disabled', true);
-  callStatus.innerHTML = "End Call";
-  startBtn.css("background-color", "red");
   $('#microphone').find('i').addClass('fa-phone-slash');
   $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
@@ -36,8 +34,10 @@ callTimer.textContent = "00:00:00";
 seconds = 0; minutes = 0; hours = 0;
 
   var language = document.getElementById("langSelect").value;
-  var recognition = new SpeechRecognition();
+
   var speechRecognitionList = new SpeechGrammarList();
+
+
 
   recognition.grammars = speechRecognitionList;
   recognition.lang = language;
@@ -60,51 +60,24 @@ seconds = 0; minutes = 0; hours = 0;
     speechResult.push(event.results[0][0].transcript);
     increment = increment + 1;
     outputPara.textContent = transcript + ' ' + speechResult[increment];
+
   }
 
   recognition.onspeechend = function() {
-    recognition.stop();
-    startBtn.disabled = false;
-    // startBtn.textContent = 'Start new test';
-    startBtn.onclick = function(){
-        $('#microphone').find('i').addClass('fa-phone');
-        $('#microphone').find('i').removeClass('fa-phone-slash');
-        recurse = false;
-        callStatus.innerHTML = "Start Call";
-        startBtn.style.backgroundColor = "green";
-        console.log("Finally it stopped!");
-        startBtn.disabled = true;
-    }
 
-    if (recurse) {
-        testSpeech();
-    }
+    recognition.stop();
+    // startBtn.textContent = 'Start new test';
+
+
 }
 
     recognition.onspeechend = function () {
         recognition.stop();
-        startBtn.disabled = false;
         // startBtn.textContent = 'Start new test';
-        startBtn.onclick = function () {
-            //changing style of button when call ends
-            $('#microphone').find('i').addClass('fa-phone');
-            $('#microphone').find('i').removeClass('fa-phone-slash');
-            recurse = false;
-            callStatus.innerHTML = "Start Call";
-            startBtn.style.backgroundColor = "green";
-            /* Stop timer */
-            clearTimeout(t);
-            console.log("Finally it stopped!");
-            startBtn.disabled = true;
-        }
-        if (recurse) {
-            testSpeech();
-        }
 
     }
 
     recognition.onerror = function (event) {
-        startBtn.disabled = false;
         // startBtn.textContent = 'Start new test';
         // outputPara.textContent = 'Call Timed Out:' + event.error;
     }
@@ -131,7 +104,9 @@ seconds = 0; minutes = 0; hours = 0;
       }).done(function(resp) {
           console.log(resp);
       });
-      
+      if(recurse){
+      testSpeech();
+        }
       console.log('SpeechRecognition.onend');
   }
 
@@ -182,12 +157,28 @@ function timer() {
 
 $(startBtn).click(function() {
     console.log('clicked');
-    if (isTranscribing) {
-        isTranscribing = false;
+    recurse = !recurse;
+    console.log(recurse);
+    if(!recurse){
+
         recognition.stop();
-    } else {
-        isTranscribing = true;
-        testSpeech();
-        timer();
+
+
     }
+    if(recurse){
+        callStatus.innerHTML = "End Call";
+        startBtn.css("background-color", "red");
+    }
+
+    else {
+        callStatus.innerHTML = "Start Call";
+        startBtn.css("background-color", "green");
+
+    }
+    testSpeech();
+    timer();
+
+
+
+
 });
