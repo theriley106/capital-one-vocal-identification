@@ -90,6 +90,11 @@ def generateUpdate():
 				text = text.partition('"')[2].partition(")]")[0][:-1]
 			else:
 				text = text.partition("'")[2].partition(")]")[0][:-1]
+			languageVal = text.partition("| ")[2].partition("'")[0].partition('"')[0].strip()
+			text = text.partition('|')[0]
+			print text
+			print languageVal
+			text = vocal.translateText(text, languageVal)
 			partGenerateAudio(text)
 			with open('updates.txt', 'w') as the_file:
 				the_file.write(text)
@@ -157,6 +162,7 @@ def partGenerateAudio(text):
 		pass
 	allFiles = {"audio_files": []}
 	for val in splitWords(text):
+		print re.sub(r'([^\s\w]|_)+', '', val)
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
 	if len(allFiles['audio_files']) == 1:
 		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
