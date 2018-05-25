@@ -9,8 +9,14 @@ var recurse = true;
 var isTranscribing = false;
 var transcript = '';
 
+var lang = document.getElementById("langSelect");
+
 function updateText(text) {
   document.getElementsByClassName("phrase")[0].innerHTML = text;
+}
+
+function updateLang(){
+  document.getElementById("customer-language").innerHTML = ' - ' + lang.options[lang.selectedIndex].text;
 }
 
 function testSpeech() {
@@ -26,7 +32,6 @@ function testSpeech() {
 
   recognition.grammars = speechRecognitionList;
   recognition.lang = language;
-  console.log(language);
   recognition.interimResults = true;
   recognition.maxAlternatives = 0;
 
@@ -45,12 +50,10 @@ function testSpeech() {
     // We then return the transcript property of the SpeechRecognitionAlternative object
     speechResult.push(event.results[0][0].transcript);
     increment = increment + 1;
-    outputPara.textContent = transcript + ' ' + speechResult[increment] + ' ';
-    console.log(speechResult);
+    outputPara.textContent = transcript + ' ' + speechResult[increment];
   }
 
   recognition.onspeechend = function() {
-    outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';
     recognition.stop();
     startBtn.disabled = false;
     // startBtn.textContent = 'Start new test';
@@ -59,6 +62,7 @@ function testSpeech() {
         $('#microphone').find('i').removeClass('fa-phone-slash');
         recurse = false;
         callStatus.innerHTML = "Start Call";
+        startBtn.style.backgroundColor = "green";
         console.log("Finally it stopped!");
         startBtn.disabled = true;
     }

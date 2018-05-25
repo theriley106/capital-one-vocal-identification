@@ -1,9 +1,48 @@
-#content{
-    font-family: 'Roboto', sans-serif;
+body{
+  font-size: 12px;
+  width: 100%;
+}
+
+header{
+  display: inline-block;
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 17.5px;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
+
+#customer{
+  color:  #4f92ff;
+}
+
+#customer-language{
+  font-weight: lighter;
+}
+
+#customer, #customer-language{
+  display: inline-block;
+  font-size: 1.75em;
+}
+
+#profile-picture{
+  height: 3.25em;
+  width: 3.25em;
+  margin-right: 15px;
+}
+
+#microphone{
+  background-color: #4f92ff;
+  text-align: center;
+  border-radius: 500px;
+  width: 75px;
+  height: 75px;
+  outline: none;
 }
 
 #customer-id{
-    font-size: 50px;
+    font-size: 3em;
     text-align: center;
 }
 
@@ -21,22 +60,12 @@
     text-align: center;
     padding: 20px 20px;
     color: #ffffff;
-}
-
-#mic-icon{
-    font-size: 30px;
+    font-size: 20px;
 }
 
 #call-button{
     padding-top: 40px;
     padding-bottom: 40px;
-}
-
-#call-status{
-    font-size: 20px;
-    min-width: 65px;
-    min-height: 35px;
-    margin: auto;
 }
 
 #language-selection{
@@ -49,4 +78,32 @@
 
 #output{
     text-align: center;
+}
+
+#microphone{
+  margin-top: 5%;
+  text-align: center;
+}
+
+#record{
+  margin-top: 1.5%;
+  text-align: center;
+}
+
+#call-status{
+  margin-top: 0.5%;
+  font-size: 1em;
+}
+
+#microphone{
+  text-align: center;
+  border-radius: 500px;
+  width: 75px;
+  height: 75px;
+  outline: none;
+}
+
+#microphone i{
+  font-size: 30px;
+  color: white;
 }

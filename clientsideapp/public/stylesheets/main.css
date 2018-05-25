@@ -10,7 +10,7 @@ body{
 
 #record{
   margin-top: 1.5%;
-  text-align: center;   
+  text-align: center;
 }
 
 #record p{
@@ -21,7 +21,7 @@ body{
 #microphone{
   background-color: #4f92ff;
   text-align: center;
-  border-radius: 50%;
+  border-radius: 500px;
   width: 75px;
   height: 75px;
   outline: none;
@@ -45,6 +45,10 @@ body{
   font-size: 1.75em;
 }
 
+#description{
+  margin-bottom: 1.5%;
+}
+
 header{
   display: inline-block;
   text-align: center;
@@ -65,27 +69,6 @@ header{
   margin-top: 2.5%;
   margin-left: 25%;
   margin-right: 25%;
-}
-
-.list-group-horizontal .list-group-item {
-    display: inline-block;
-}
-.list-group-horizontal .list-group-item {
-	margin-bottom: 0;
-	margin-left:-4px;
-	margin-right: 0;
-}
-.list-group-horizontal .list-group-item:first-child {
-	border-top-right-radius:0;
-	border-bottom-left-radius:4px;
-}
-.list-group-horizontal .list-group-item:last-child {
-	border-top-right-radius:4px;
-	border-bottom-left-radius:0;
-}
-
-.list-group-item{
-  margin-bottom: 5px;
 }
 
 .list-text{
