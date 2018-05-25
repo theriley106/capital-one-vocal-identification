@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
     crossorigin="anonymous">
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <title>Hello World - Customer</title>
+  <title id="page-id">Hello World - Customer</title>
 </head>
 
 <body>
@@ -31,17 +31,16 @@
   </header>
   <div class="main">
     <!--call timer-->
-  <div id="callTimer" class="row justify-content-center">
+    <div id="callTimer" class="row justify-content-center">
       <time>00:00:00</time>
     </div>
+
     <div id="record">
-      <button id="microphone">
+      <button id="microphone" style="background-color:green">
         <i class="fas fa-microphone"></i>
       </button>
-      <p id="call-status">Start speaking</p>
+      <p id="call-status">Start Speaking</p>
     </div>
-    <div class="col align-self-end"></div>
-  </header>
 
   <!-- <div>
           <p class="phrase">Phrase...</p>
@@ -103,7 +102,7 @@
         playSound('http://104.236.71.248:8000/static/output.mp3?ch=' + String(parseInt((Math.random() * ((900000000 - 1) + 1)))));
       }
       prevVal = String(obj);
-       }, 2000);
+    }, 3000);
 
 </script>
 
