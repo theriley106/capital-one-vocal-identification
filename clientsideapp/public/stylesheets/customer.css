@@ -1,9 +1,48 @@
-#content{
-    font-family: 'Roboto', sans-serif;
+body{
+  font-size: 12px;
+}
+
+header{
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 17.5px;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
+
+#customer{
+  color:  #4f92ff;
+}
+
+#customer-language{
+  font-weight: lighter;
+}
+
+#customer, #customer-language{
+  display: inline-block;
+  font-size: 1.75em;
+}
+
+#profile-picture{
+  height: 3.25em;
+  width: 3.25em;
+  margin-right: 15px;
+}
+
+#microphone{
+  background-color: #4f92ff;
+  text-align: center;
+  border-radius: 500px;
+  width: 75px;
+  height: 75px;
+  outline: none;
 }
 
 #customer-id{
-    font-size: 50px;
+    font-size: 3em;
     text-align: center;
 }
 
@@ -46,4 +85,27 @@
 
 #output{
     text-align: center;
+}
+
+#microphone{
+  margin-top: 5%;
+  text-align: center;
+}
+
+#record p{
+  margin-top: 0.5%;
+  font-size: 1em;
+}
+
+#microphone{
+  text-align: center;
+  border-radius: 500px;
+  width: 75px;
+  height: 75px;
+  outline: none;
+}
+
+#microphone i{
+  font-size: 30px;
+  color: white;
 }
