@@ -97,6 +97,29 @@ def generateUpdate():
 			print exp
 			return jsonify({"text": "", "success": True})
 
+def splitWords(string):
+	audioLength = 100
+	prevLen = 0
+	words = string
+	allVals = []
+	for i in range(10):
+		if len(words) > 5:
+			words = words[prevLen:]
+			newWord = words[:audioLength][::-1].strip().partition(' ')[2][::-1]
+			prevLen = len(newWord)
+			print newWord
+			if len(newWord) > 3:
+				allVals.append(newWord)
+	return allVals
+
+
+@app.route('/getAudio', methods=["POST"])
+def generateAudio():
+	allFiles = {"audio_files": []}
+	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
+	for val in splitWords(text):
+		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', text), 'en'))
+	return jsonfiy(allFiles)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8000)
