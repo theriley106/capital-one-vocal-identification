@@ -71,7 +71,7 @@
       </div>
     </div>
 
-  
+
     <div id="record" onclick="record()">
       <button id="microphone">
         <i class="fas fa-microphone"></i>
@@ -90,19 +90,8 @@
   
   </div>
 
-
-  <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-    crossorigin="anonymous"></script>
-
-     
-
-
     <script>
-        
+      read();
       var recording = true;
       document.getElementById("infoButton").style.backgroundColor = "#4f92ff";
       document.getElementById("infoButton").style.color = "white";
@@ -126,6 +115,16 @@
         document.getElementById("infoButton").style.backgroundColor = "white";
         document.getElementById("infoButton").style.color = "#4f92ff";
       }
+      function read() {
+        var text = null;
+        $.ajax({
+            url: 'http://104.236.71.248:8000/updates',
+            type: 'GET',
+            data: text
+        }).done(function(resp){
+          translate(resp.text)
+        });
+      }
     
     function translate(text, language) {
       
@@ -141,8 +140,7 @@
           document.getElementById("original_text").innerHTML=resp.original_text;
           document.getElementById("translated_text").innerHTML=resp.new_text;
         //alert(this.response);
-});
-
+      });
     }
     
   

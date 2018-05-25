@@ -27,8 +27,8 @@ header{
 }
 
 #profile-picture{
-  height: 3.25em;
-  width: 3.25em;
+  max-height: 3.25em;
+  max-width: 3.25em;
   margin-right: 15px;
 }
 
@@ -105,4 +105,8 @@ header{
 #callTimer{
     margin-top: 5%;
     font-size: 25px;
+}
+
+body{
+    overflow-x: hidden;
 }
