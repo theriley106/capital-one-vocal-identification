@@ -127,6 +127,7 @@ def generateAudio():
 	for i, val in enumerate(allFiles['audio_files']):
 		saveMP3(val, "{}.mp3".format(i))
 	os.system("rm *.mp3")
+	os.system("rm static/output.mp3")
 	os.system("mp3wrap output.mp3 *.mp3")
 	os.system("mv *MP3WRAP.mp3 static/output.mp3")
 	return jsonify(allFiles)
@@ -138,6 +139,7 @@ def partGenerateAudio(text):
 	for i, val in enumerate(allFiles['audio_files']):
 		saveMP3(val, "{}.mp3".format(i))
 	os.system("rm *.mp3")
+	os.system("rm static/output.mp3")
 	os.system("mp3wrap output.mp3 *.mp3")
 	os.system("mv *MP3WRAP.mp3 static/output.mp3")
 	return allFiles
