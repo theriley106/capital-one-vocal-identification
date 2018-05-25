@@ -181,18 +181,21 @@ $(startBtn).click(function() {
     doTimer++;
 
     recurse = !recurse;
-
-    if (recurse) {
-        $('#microphone').find('i').removeClass('fa-microphone');
-        $('#microphone').find('i').addClass('fa-microphone-slash');
-        callStatus.innerHTML = "End Call";
+    console.log(recurse);
+    if(!recurse){
+        recognition.stop();
+    }
+    if(recurse){
+      $('#microphone').find('i').removeClass('fa-microphone');
+      $('#microphone').find('i').addClass('fa-microphone-slash');
+        callStatus.innerHTML = "Stop Speaking";
         startBtn.css("background-color", "red");
     } else {
         recognition.stop();
         $('#microphone').find('i').addClass('fa-microphone');
         $('#microphone').find('i').removeClass('fa-microphone-slash');
         reset = true;
-        callStatus.innerHTML = "Start Call";
+        callStatus.innerHTML = "Start Speaking";
         startBtn.css("background-color", "green");
     }
 
