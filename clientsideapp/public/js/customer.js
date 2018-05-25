@@ -61,6 +61,7 @@ function testSpeech() {
         $('#microphone').find('i').removeClass('fa-phone-slash');
         recurse = false;
         callStatus.innerHTML = "Start Call";
+        startBtn.style.backgroundColor = "green";
         console.log("Finally it stopped!");
         startBtn.disabled = true;
     }
