@@ -12,6 +12,9 @@ var recurse = true;
 
 var transcript = '';
 
+var silenceCounter = 0;
+
+
 function updateText(text) {
     document.getElementsByClassName("phrase")[0].innerHTML = text;
 }
@@ -29,7 +32,6 @@ function testSpeech() {
 
   recognition.grammars = speechRecognitionList;
   recognition.lang = language;
-  console.log(language);
   recognition.interimResults = true;
   recognition.maxAlternatives = 1;
 
@@ -48,11 +50,10 @@ function testSpeech() {
     // We then return the transcript property of the SpeechRecognitionAlternative object
     speechResult.push(event.results[0][0].transcript);
     increment = increment + 1;
-    outputPara.textContent = transcript + ' ' + speechResult[increment] + ' ';
-    console.log(speechResult);
+    outputPara.textContent = transcript + ' ' + speechResult[increment];
   }
+
   recognition.onspeechend = function() {
-    outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';
     recognition.stop();
     startBtn.disabled = false;
     // startBtn.textContent = 'Start new test';
@@ -65,9 +66,9 @@ function testSpeech() {
         console.log("Finally it stopped!");
         startBtn.disabled = true;
     }
-        if (recurse) {
-            testSpeech();
-        }
+    if (recurse) {
+        testSpeech();
+    }
 
     }
 
@@ -90,11 +91,12 @@ function testSpeech() {
 
     recognition.onend = function (event) {
         //Fired when the speech recognition service has disconnected.
-        transcript = outputPara.textContent + '. ';
+        transcript = outputPara.textContent + '.';
         var xhr = new XMLHttpRequest();
         xhr.open('post', "http://172.20.28.113:5000", true);
         //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");<--don't do this
         var formData = new FormData();
+        console.log("transcript: " + transcript);
         formData.append('info', transcript);    // makes no difference
         xhr.send(formData);
         xhr.onload = function () {
