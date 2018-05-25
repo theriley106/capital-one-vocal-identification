@@ -109,11 +109,7 @@
         <button id="microphone" style="background-color:green">
           <i class="fas fa-microphone"></i>
         </button>
-<<<<<<< HEAD
-        <p id="call-status">Start speaking</p>
-=======
         <p id="call-status">Start Speaking</p>
->>>>>>> cda32daef8cefa966b29f6163c661f94209905fe
       </div>
 
       <!-- <div>
@@ -134,13 +130,6 @@
           </select>
         </div>
       </div>
-<<<<<<< HEAD
-=======
-      <div id="sentiment">Sentiment: 0</div>
-      <div class="justify-content-center">
-        <p id="output"></p>
-      </div>
->>>>>>> cda32daef8cefa966b29f6163c661f94209905fe
       <!--Scripts-->
       <script type="text/javascript" src="js/customer.js"></script>
 
@@ -178,15 +167,9 @@
             type: 'GET',
             data: text
         }).done(function(resp){
-<<<<<<< HEAD
-          document.getElementById("customer-language").innerHTML = ' - ' + resp.lang;
-          console.log(document.getElementById("langSelect").value)
-          translate(resp.text, document.getElementById("langSelect").value)
-=======
           var lang = resp.lang === undefined ? 'English' : resp.lang;
           document.getElementById("customer-language").innerHTML = ' - ' + lang;
           translate(resp.text, "en");
->>>>>>> cda32daef8cefa966b29f6163c661f94209905fe
         });
       }
 
