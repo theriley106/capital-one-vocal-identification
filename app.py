@@ -116,6 +116,7 @@ def splitWords(string):
 @app.route('/getAudio', methods=["POST"])
 def generateAudio():
 	allFiles = {"audio_files": []}
+	print str(request.form)
 	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
 	print text
 	for val in splitWords(text):
