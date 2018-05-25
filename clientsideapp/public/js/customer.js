@@ -33,15 +33,11 @@ function updateLang() {
 }
 
 function testSpeech() {
-  $('#microphone').find('i').addClass('fa-phone-slash');
-  $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
 
   var language = document.getElementById("langSelect").value;
 
   var speechRecognitionList = new SpeechGrammarList();
-
-
 
   recognition.grammars = speechRecognitionList;
   recognition.lang = language;
@@ -184,22 +180,20 @@ $(startBtn).click(function() {
     recurse = !recurse;
     console.log(recurse);
     if(!recurse){
-
         recognition.stop();
-
-
     }
     if(recurse){
+      $('#microphone').find('i').removeClass('fa-microphone');
+      $('#microphone').find('i').addClass('fa-microphone-slash');
         callStatus.innerHTML = "End Call";
         startBtn.css("background-color", "red");
     }
 
     else {
-        $('#microphone').find('i').addClass('fa-phone');
-        $('#microphone').find('i').removeClass('fa-phone-slash');
-        callStatus.innerHTML = "Start Call";
-        startBtn.css("background-color", "#1f9c25");
+        $('#microphone').find('i').addClass('fa-microphone');
+        $('#microphone').find('i').removeClass('fa-microphone-slash');
         reset = true;
+        callTimer.textContent = "00:00:00";
         callStatus.innerHTML = "Start Call";
         startBtn.css("background-color", "green");
     }
