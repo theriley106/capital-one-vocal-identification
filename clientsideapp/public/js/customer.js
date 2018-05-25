@@ -160,10 +160,21 @@ $(startBtn).click(function() {
     recurse = !recurse;
     console.log(recurse);
     if(!recurse){
+
         recognition.stop();
+
+
     }
-    callStatus.innerHTML = "End Call";
-    startBtn.css("background-color", "red");
+    if(recurse){
+        callStatus.innerHTML = "End Call";
+        startBtn.css("background-color", "red");
+    }
+
+    else {
+        callStatus.innerHTML = "Start Call";
+        startBtn.css("background-color", "green");
+
+    }
     testSpeech();
     timer();
 
