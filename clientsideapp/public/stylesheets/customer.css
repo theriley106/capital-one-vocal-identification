@@ -1,0 +1,52 @@
+#content{
+    font-family: 'Roboto', sans-serif;
+}
+
+#customer-id{
+    font-size: 50px;
+    text-align: center;
+}
+
+#customer-pic{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    max-height:200px;
+    max-width:150px;
+    align-content:center;
+}
+
+#microphone{
+    border-radius: 50%;
+    background: #1f9c25;
+    text-align: center;
+    padding: 20px 20px;
+    color: #ffffff;
+}
+
+#mic-icon{
+    font-size: 30px;
+}
+
+#call-button{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+#call-status{
+    font-size: 20px;
+    min-width: 65px;
+    min-height: 35px;
+    margin: auto;
+}
+
+#language-selection{
+    padding-top: 40px;
+    padding-bottom: 50px;
+    background: "white";
+    text-align:center;
+    align-content:center;
+}
+
+#output{
+    text-align: center;
+}

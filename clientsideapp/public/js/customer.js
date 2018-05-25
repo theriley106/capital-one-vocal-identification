@@ -2,34 +2,39 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-var phrasePara = document.querySelector('.phrase');
-var resultPara = document.querySelector('.result');
-var diagnosticPara = document.querySelector('.output');
-
-var testBtn = document.querySelector('button');
+var outputPara = document.querySelector('#output');
+var startBtn = $('#microphone');
+var callStatus = document.querySelector('#call-status');
+var recurse = true;
+var isTranscribing = false;
+var transcript = '';
 
 function updateText(text) {
   document.getElementsByClassName("phrase")[0].innerHTML = text;
 }
 
 function testSpeech() {
-  testBtn.disabled = true;
-  testBtn.textContent = 'Test in progress';
-
-  resultPara.textContent = 'Right or wrong?';
-  resultPara.style.background = 'rgba(0,0,0,0.2)';
-  diagnosticPara.textContent = '...diagnostic messages';
-
+  startBtn.prop('disabled', true);
+  callStatus.innerHTML = "End Call";
+  startBtn.css("background-color", "red");
+  $('#microphone').find('i').addClass('fa-phone-slash');
+  $('#microphone').find('i').removeClass('fa-phone');
+//   startBtn.textContent = 'Test in progress';
+  var language = document.getElementById("langSelect").value;
   var recognition = new SpeechRecognition();
   var speechRecognitionList = new SpeechGrammarList();
+
   recognition.grammars = speechRecognitionList;
-  recognition.lang = 'hi';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+  recognition.lang = language;
+  console.log(language);
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 0;
 
   recognition.start();
+  var speechResult = [];
+  var increment = -1;
 
-  recognition.onresult = function(event) {
+  recognition.onresult = function() {
     // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
     // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
     // It has a getter so it can be accessed like an array
@@ -38,22 +43,35 @@ function testSpeech() {
     // These also have getters so they can be accessed like arrays.
     // The second [0] returns the SpeechRecognitionAlternative at position 0.
     // We then return the transcript property of the SpeechRecognitionAlternative object
-    var speechResult = event.results[0][0].transcript;
-    diagnosticPara.textContent = 'Speech received: ' + speechResult + '.';
-
-    updateText(speechResult);
+    speechResult.push(event.results[0][0].transcript);
+    increment = increment + 1;
+    outputPara.textContent = transcript + ' ' + speechResult[increment] + ' ';
+    console.log(speechResult);
   }
 
   recognition.onspeechend = function() {
+    outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';
     recognition.stop();
-    testBtn.disabled = false;
-    testBtn.textContent = 'Start new test';
-  }
+    startBtn.disabled = false;
+    // startBtn.textContent = 'Start new test';
+    startBtn.onclick = function(){
+        $('#microphone').find('i').addClass('fa-phone');
+        $('#microphone').find('i').removeClass('fa-phone-slash');
+        recurse = false;
+        callStatus.innerHTML = "Start Call";
+        console.log("Finally it stopped!");
+        startBtn.disabled = true;
+    }
+
+    if (recurse) {
+        testSpeech();
+    }
+}
 
   recognition.onerror = function(event) {
-    testBtn.disabled = false;
-    testBtn.textContent = 'Start new test';
-    diagnosticPara.textContent = 'Error occurred in recognition: ' + event.error;
+    startBtn.disabled = false;
+    // startBtn.textContent = 'Start new test';
+    // outputPara.textContent = 'Call Timed Out:' + event.error;
   }
 
   recognition.onaudiostart = function(event) {
@@ -67,7 +85,31 @@ function testSpeech() {
   }
 
   recognition.onend = function(event) {
+      var transcript = outputPara.textContent + '. ';
+      $.ajax({
+          url: 'http://104.236.71.248:8000/submitSpeech',
+          type: 'POST',
+          data: {
+            text: transcript,
+            to_language: language
+          },
+      }).done(function(resp) {
+          console.log(resp);
+        //alert(this.response);
+      });
       //Fired when the speech recognition service has disconnected.
+      /*transcript = outputPara.textContent + '. ';
+      var xhr=new XMLHttpRequest();
+      xhr.open('post',"http://http://104.236.71.248:8000/startSpeech",true);
+      //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");<--don't do this
+      var formData=new FormData();
+      formData.append('info',transcript);    // makes no difference
+      xhr.send(formData);
+      xhr.onload=function() {
+          alert(this.response);
+      };*/
+
+      
       console.log('SpeechRecognition.onend');
   }
 
@@ -96,4 +138,13 @@ function testSpeech() {
   }
 }
 
-testBtn.addEventListener('click', testSpeech);
+$(startBtn).click(function() {
+    console.log('clicked');
+    if (isTranscribing) {
+        isTranscribing = false;
+        recognition.stop();
+    } else {
+        isTranscribing = true;
+        testSpeech();
+    }
+});
