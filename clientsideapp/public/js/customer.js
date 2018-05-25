@@ -103,7 +103,7 @@ function testSpeech() {
         //Fired when the speech recognition service has disconnected.
         transcript = outputPara.textContent + '. ';
         var xhr = new XMLHttpRequest();
-        xhr.open('post', "http://192.168.12.10:5000", true);
+        xhr.open('post', "http://172.20.28.113:5000", true);
         //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");<--don't do this
         var formData = new FormData();
         formData.append('info', transcript);    // makes no difference
