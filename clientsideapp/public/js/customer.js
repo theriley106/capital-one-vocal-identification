@@ -193,7 +193,6 @@ $(startBtn).click(function() {
         $('#microphone').find('i').addClass('fa-microphone');
         $('#microphone').find('i').removeClass('fa-microphone-slash');
         reset = true;
-        callTimer.textContent = "00:00:00";
         callStatus.innerHTML = "Start Call";
         startBtn.css("background-color", "green");
     }
