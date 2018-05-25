@@ -77,6 +77,26 @@ def generateComment():
 	tempDict['word_count'] = len(text.split(" "))
 	return jsonify(tempDict)
 
+@app.route('/updates', methods=["GET", "POST"])
+def generateUpdate():
+	if request.method == 'POST':
+		try:
+			print request.form
+			text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
+			with open('updates.txt', 'w') as the_file:
+				the_file.write(text)
+			return jsonify({"success": True})
+		except Exception as exp:
+			print exp
+			return jsonify({"success": False})
+	if request.method == 'GET':
+		try:
+			e = open("updates.txt").read().strip()
+			return jsonify({"text": e, "success": True})
+		except Exception as exp:
+			print exp
+			return jsonify({"text": "", "success": True})
+
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8000)
