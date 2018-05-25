@@ -14,6 +14,9 @@ var seconds = 0, minutes = 0, hours = 0, t;
 var recurse = false;
 var isTranscribing = false;
 var transcript = '';
+var sentimentCount = 0;
+var sentimentVal = 0;
+var avgSentiment = 0;
 
 var lang = document.getElementById("langSelect");
 
@@ -103,6 +106,13 @@ seconds = 0; minutes = 0; hours = 0;
           },
       }).done(function(resp) {
           console.log(resp);
+          sentiment = resp.sentiment;
+          sentimentVal = sentiment + sentimentVal;
+          sentimentCount = sentimentCount + 1;
+          console.log(sentimentVal);
+          console.log(sentimentCount);
+          avgSentiment = sentimentVal/sentimentCount;
+
       });
       if(recurse){
       testSpeech();
@@ -171,8 +181,11 @@ $(startBtn).click(function() {
     }
 
     else {
+        $('#microphone').find('i').addClass('fa-phone');
+        $('#microphone').find('i').removeClass('fa-phone-slash');
         callStatus.innerHTML = "Start Call";
-        startBtn.css("background-color", "green");
+        startBtn.css("background-color", "#1f9c25");
+
 
     }
     testSpeech();
