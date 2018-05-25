@@ -106,3 +106,7 @@ header{
     margin-top: 5%;
     font-size: 25px;
 }
+
+body{
+    overflow-x: hidden;
+}
