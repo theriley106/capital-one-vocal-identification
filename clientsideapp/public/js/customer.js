@@ -109,7 +109,7 @@ function testSpeech() {
           console.log(sentimentVal);
           console.log(sentimentCount);
           avgSentiment = sentimentVal/sentimentCount;
-          sentPara.textContent = "Sentiment: " + avgSentiment.toFixed(2);
+          sentPara.textContent = avgSentiment.toFixed(2);
 
 
       });
@@ -185,7 +185,7 @@ $(startBtn).click(function() {
     if(recurse){
       $('#microphone').find('i').removeClass('fa-microphone');
       $('#microphone').find('i').addClass('fa-microphone-slash');
-        callStatus.innerHTML = "End Call";
+        callStatus.innerHTML = "Stop speaking";
         startBtn.css("background-color", "red");
     }
 
@@ -194,7 +194,7 @@ $(startBtn).click(function() {
         $('#microphone').find('i').removeClass('fa-microphone-slash');
         reset = true;
         callTimer.textContent = "00:00:00";
-        callStatus.innerHTML = "Start Call";
+        callStatus.innerHTML = "Start speaking";
         startBtn.css("background-color", "green");
     }
     if(reset){
