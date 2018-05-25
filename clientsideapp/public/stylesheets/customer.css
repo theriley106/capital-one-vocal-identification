@@ -110,3 +110,12 @@ header{
 body{
     overflow-x: hidden;
 }
+
+#sentiment {
+    border-radius: 50%;
+    background-color: blue;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    margin: auto;
+}
