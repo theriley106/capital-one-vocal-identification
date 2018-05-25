@@ -13,8 +13,6 @@ var ejs = require('ejs');
 var http = require('http');
 
 var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
 app.engine('html', ejs.renderFile);
 app.set('view engine', 'html');
@@ -27,15 +25,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'));
-
-io.on('connection', function(client) {  
-  console.log('Client connected...');
-
-  client.on('join', function(data) {
-      console.log(data);
-  });
-
-});
 
 app.use('/', index);
 app.use('/agent', agent);
