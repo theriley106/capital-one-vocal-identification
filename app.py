@@ -70,8 +70,7 @@ def generateComment():
 	tempDict['sentiment'] = float("{0:.2f}".format(analytics.getSentiment(text)))
 	tempDict['success'] = True
 	tempDict['message'] = "Hello from the software engineering summit!"
-	text = re.sub("[^a-zA-Z]+", "", text)
-	tempDict['new_text_speech'] = vocal.generateURL(text, 'en')
+	tempDict['new_text_speech'] = vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', text), 'en')
 	tempDict['sentiment'] = float("{0:.2f}".format(analytics.getSentiment(text)))
 	tempDict['keywords'] = analytics.getKeywords(text)
 	tempDict['verbosity'] = float("{0:.2f}".format(float(len(' '.join(tempDict['keywords']).split(' '))) / float(len(text.split(" ")))))
