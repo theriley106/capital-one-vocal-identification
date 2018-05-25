@@ -50,7 +50,7 @@ body{
 }
 
 #translation-text{
-  margin-top: 10%;
+  margin-top: 2.5%;
   margin-left: 15%;
   margin-right: 15%;
   margin-bottom: 10%;
@@ -95,16 +95,8 @@ header{
   margin-left: 7.5px;
 }
 
-<<<<<<< HEAD
-.jumbotron{
-  margin-top: 1.5%;
-  margin-left: 10%;
-  margin-right: 10%;
-}
-=======
 #logo{
   max-height: 50px;
   max-width: 400px;
   padding-left: 5%;
 }
->>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7

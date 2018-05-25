@@ -93,13 +93,14 @@ function testSpeech() {
   }
 
   recognition.onend = function(event) {
+    console.log('sent')
       var transcript = outputPara.textContent + '. ';
       $.ajax({
-          url: 'http://104.236.71.248:8000/submitSpeech',
+          url: 'http://104.236.71.248:8000/updates',
           type: 'POST',
           data: {
             text: transcript,
-            to_language: language
+            lang: language
           },
       }).done(function(resp) {
           console.log(resp);
@@ -193,12 +194,8 @@ $(startBtn).click(function() {
         $('#microphone').find('i').addClass('fa-microphone');
         $('#microphone').find('i').removeClass('fa-microphone-slash');
         reset = true;
-<<<<<<< HEAD
         callTimer.textContent = "00:00:00";
         callStatus.innerHTML = "Start speaking";
-=======
-        callStatus.innerHTML = "Start Call";
->>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7
         startBtn.css("background-color", "green");
     }
     if(reset){

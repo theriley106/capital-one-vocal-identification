@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Support</title>
+    <title>Hello World - Support</title>
     <link rel="icon" type="image/png" sizes="32x32" href="//cdn.shopify.com/s/files/1/1765/5971/t/10/assets/favicon-32x32.png?9610605222100492220">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,8 +40,8 @@
         <div class="col align-self-end"></div>
       </header>
     <nav class="nav nav-pills nav-fill tabs">
-      <a class="nav-item nav-link" id="infoButton" href="#" onclick="showInfo()">Customer Information</a>
       <a class="nav-item nav-link" id="requestButton" href="#" onclick="showRequest()">Customer Request</a>
+      <a class="nav-item nav-link" id="infoButton" href="#" onclick="showInfo()">Customer Information</a>
     </nav>
 
     <div id="account-information" class="text-field">
@@ -101,10 +101,6 @@
         </div>
       </div>
 
-
-
-
-
       <div id="callTimer" class="row justify-content-center">
         <time>00:00:00</time>
       </div>
@@ -113,12 +109,7 @@
         <button id="microphone" style="background-color:green">
           <i class="fas fa-microphone"></i>
         </button>
-<<<<<<< HEAD
         <p id="call-status">Start speaking</p>
-=======
-        <p id="call-status">Start call</p>
-
->>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7
       </div>
 
       <!-- <div>
@@ -139,13 +130,6 @@
           </select>
         </div>
       </div>
-<<<<<<< HEAD
-=======
-      <div id="sentiment">Sentiment: 0</div>
-      <div class="justify-content-center">
-        <p id="output"></p>
-      </div>
->>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7
       <!--Scripts-->
       <script type="text/javascript" src="js/customer.js"></script>
 
@@ -154,11 +138,11 @@
     <script>
       read();
       var recording = true;
-      document.getElementById("infoButton").style.backgroundColor = "#4f92ff";
-      document.getElementById("infoButton").style.color = "white";
-      document.getElementById("requestButton").style.backgroundColor = "white";
-      document.getElementById("requestButton").style.color = "#4f92ff";
-      document.getElementById("translation").style.display = "none";
+      document.getElementById("requestButton").style.backgroundColor = "#4f92ff";
+      document.getElementById("requestButton").style.color = "white";
+      document.getElementById("infoButton").style.backgroundColor = "white";
+      document.getElementById("infoButton").style.color = "#4f92ff";
+      document.getElementById("account-information").style.display = "none";
 
       function showInfo() {
         document.getElementById("translation").style.display = "none";
@@ -184,17 +168,18 @@
             data: text
         }).done(function(resp){
           document.getElementById("customer-language").innerHTML = ' - ' + resp.lang;
-          translate(resp.text, "en")
+          console.log(document.getElementById("langSelect").value)
+          translate(resp.text, document.getElementById("langSelect").value)
         });
       }
 
     function translate(text, language) {
       $.ajax({
-          url: 'http://104.236.71.248:8000/submitSpeech',
+          url: 'http://104.236.71.248:8000/updates',
           type: 'POST',
           data: {
             text: text,
-            to_language: language
+            lang: language
           },
       }).done(function(resp) {
         customer_lang=resp.language;
