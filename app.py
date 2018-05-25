@@ -117,7 +117,7 @@ def splitWords(string):
 def generateAudio():
 	allFiles = {"audio_files": []}
 	print str(request.form)
-	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
+	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition(")]")[0][:-1]
 	print text
 	for val in splitWords(text):
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
