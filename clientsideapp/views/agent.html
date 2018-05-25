@@ -87,7 +87,7 @@
       <div id="translated_text" style=" padding : 10px;">
 
       </div>
-  
+
   </div>
 
     <script>
@@ -122,12 +122,12 @@
             type: 'GET',
             data: text
         }).done(function(resp){
-          translate(resp.text)
+          document.getElementById("customer-language").innerHTML = ' - ' + resp.lang;
+          translate(resp.text,'hi')
         });
       }
-    
+
     function translate(text, language) {
-      
       $.ajax({
           url: 'http://104.236.71.248:8000/submitSpeech',
           type: 'POST',
@@ -142,8 +142,8 @@
         //alert(this.response);
       });
     }
-    
-  
+
+
     </script>
   </body>
 
