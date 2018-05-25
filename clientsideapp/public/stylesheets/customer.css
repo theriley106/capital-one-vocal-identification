@@ -1,9 +1,9 @@
 body{
   font-size: 12px;
+  width: 100%;
 }
 
 header{
-  width: 100%;
   display: inline-block;
   text-align: center;
   padding-top: 25px;
@@ -58,21 +58,8 @@ header{
     border-radius: 50%;
     background: #1f9c25;
     text-align: center;
-    padding: 20px 20px;
     color: #ffffff;
     font-size: 20px;
-}
-
-#call-button{
-    padding-top: 40px;
-    padding-bottom: 40px;
-}
-
-#call-status{
-    font-size: 20px;
-    min-width: 65px;
-    min-height: 35px;
-    margin: auto;
 }
 
 #language-selection{
@@ -92,7 +79,12 @@ header{
   text-align: center;
 }
 
-#record p{
+#record{
+  margin-top: .25%;
+  text-align: center;
+}
+
+#call-status{
   margin-top: 0.5%;
   font-size: 1em;
 }
@@ -108,4 +100,9 @@ header{
 #microphone i{
   font-size: 30px;
   color: white;
+}
+
+#callTimer{
+    margin-top: 5%;
+    font-size: 25px;
 }

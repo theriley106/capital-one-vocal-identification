@@ -27,6 +27,10 @@ body{
   margin-top: 10%;
 }
 
+#submission{
+  float: right;
+}
+
 button a{
   color: white;
   text-decoration: none;
