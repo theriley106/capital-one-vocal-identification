@@ -90,6 +90,7 @@ def generateUpdate():
 				text = text.partition('"')[2].partition(")]")[0][:-1]
 			else:
 				text = text.partition("'")[2].partition(")]")[0][:-1]
+			tempText = text
 			languageVal = text.partition("| ")[2].partition("'")[0].partition('"')[0].strip()
 			text = text.partition('|')[0]
 			print text
@@ -98,6 +99,8 @@ def generateUpdate():
 			partGenerateAudio(text, languageVal)
 			with open('updates.txt', 'w') as the_file:
 				the_file.write(text)
+			with open('rawUpdate.txt', 'w') as the_file:
+				the_file.write(tempText)
 			return jsonify({"success": True})
 		except Exception as exp:
 			print exp
@@ -105,7 +108,8 @@ def generateUpdate():
 	if request.method == 'GET':
 		try:
 			e = open("updates.txt").read().strip()
-			return jsonify({"text": e, "success": True})
+			f = open("rawUpdate.txt").read().strip()
+			return jsonify({"text": e, "raw_data": f, "success": True})
 		except Exception as exp:
 			print exp
 			return jsonify({"text": "", "success": True})
