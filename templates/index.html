@@ -4,12 +4,38 @@
 <head>
 
 </head>
-<audio id="music" preload="all">
-   <source src="https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=t%20three%20credit%20card%20accounts%20from%20us%20Do%20they%20care%20Of%20course%20not%20The%20sam%20as%20we%20dont%20care%20if&tl=en">
+<audio id="music">
+   <source src="http://104.236.71.248:8000/audio/">
 </audio>
 <script>
-  let music = document.getElementById('music');
-  music.play();
+
+function httpGet(theUrl)
+// The network request grabs the json containing mp3 structure
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+	console.log("Works")
+
+	jsonString = httpGet("http://104.236.71.248:8000/updates");
+	// This is the actual file structure
+	obVal = JSON.parse(jsonString);
+	var obj = obVal.text;
+	var prevVal = String(obj);
+
+  setInterval(function(){
+  	let music = document.getElementById('music');
+  	jsonString = httpGet("http://104.236.71.248:8000/updates");
+	obVal = JSON.parse(jsonString);
+	var obj = obVal.text;
+	console.log(obj);
+	if (String(prevVal) != String(obj)){
+		music.play();
+	}
+	prevVal = String(obj);
+   }, 2000);
 </script>
 
 </html>

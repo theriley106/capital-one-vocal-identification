@@ -85,6 +85,7 @@ def generateUpdate():
 		try:
 			print request.form
 			text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
+			partGenerateAudio(text)
 			with open('updates.txt', 'w') as the_file:
 				the_file.write(text)
 			return jsonify({"success": True})
@@ -128,6 +129,16 @@ def generateAudio():
 	os.system("mp3wrap output.mp3 *.mp3")
 	os.system("mv *MP3WRAP.mp3 static/output.mp3")
 	return jsonify(allFiles)
+
+def partGenerateAudio(text):
+	allFiles = {"audio_files": []}
+	for val in splitWords(text)[::-1]:
+		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
+	for i, val in enumerate(allFiles['audio_files']):
+		saveMP3(val, "{}.mp3".format(i))
+	os.system("mp3wrap output.mp3 *.mp3")
+	os.system("mv *MP3WRAP.mp3 static/output.mp3")
+	return allFiles
 
 def saveMP3(mp3URL, fileName):
 	#return MP3 file name
