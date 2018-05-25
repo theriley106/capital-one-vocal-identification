@@ -4,10 +4,18 @@
 <head>
 
 </head>
-<audio id="music">
-   <source src="http://104.236.71.248:8000/audio/">
-</audio>
 <script>
+
+function playSound(url){
+  var audio = document.createElement('audio');
+  audio.style.display = "none";
+  audio.src = url;
+  audio.autoplay = true;
+  audio.onended = function(){
+    audio.remove() //Remove when played.
+  };
+  document.body.appendChild(audio);
+}
 
 function httpGet(theUrl)
 // The network request grabs the json containing mp3 structure
@@ -24,7 +32,6 @@ function httpGet(theUrl)
 	obVal = JSON.parse(jsonString);
 	var obj = obVal.text;
 	var prevVal = String(obj);
-
   setInterval(function(){
   	let music = document.getElementById('music');
   	jsonString = httpGet("http://104.236.71.248:8000/updates");
@@ -32,7 +39,7 @@ function httpGet(theUrl)
 	var obj = obVal.text;
 	console.log(obj);
 	if (String(prevVal) != String(obj)){
-		music.play();
+		playSound('http://104.236.71.248:8000/static/output.mp3?ch=' + String(parseInt((Math.random() * ((900000000 - 1) + 1)))));
 	}
 	prevVal = String(obj);
    }, 2000);
