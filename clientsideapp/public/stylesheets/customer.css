@@ -119,3 +119,11 @@ body {
 body{
     overflow-x: hidden;
 }
+
+#logo{
+    max-height: 50px;
+}
+
+#sentiment{
+    text-align: center;
+}

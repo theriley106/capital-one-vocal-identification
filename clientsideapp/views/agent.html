@@ -16,9 +16,9 @@
 
   <body>
     <header>
-      <img id="profile-picture" src="placeholder.png" class="rounded">
+      <img id="profile-picture" src="/images/Capture.PNG" class="rounded">
       <div id="customer" class="align-middle">
-        Adam Schueller
+        Harshil Shah
       </div>
       <div id="customer-language" class="align-middle">
         - English
@@ -35,8 +35,8 @@
       <div id="description">
         <ul class="list-group">
           <li class="list-group-item">
-            <h5 class="mb-1 d-inline-flex align-middle">Account number: </h5>
-            <span class="list-text d-inline-flex align-middle">0000 0000 000 0000</span>
+            <h5 class="mb-1 d-inline-flex align-middle">Account Number: </h5>
+            <span class="list-text d-inline-flex align-middle">669219443321</span>
           </li>
           <li class="list-group-item">
             <h5 class="mb-1 d-inline-flex align-middle">Address: </h5>
@@ -51,7 +51,7 @@
             <span class="list-text d-inline-flex align-middle">PA</span>
           </li>
           <li class="list-group-item">
-            <h5 class="mb-1 d-inline-flex align-middle">Zip code: </h5>
+            <h5 class="mb-1 d-inline-flex align-middle">Zip Code: </h5>
             <span class="list-text d-inline-flex align-middle">16046</span>
           </li>
         </ul>
@@ -60,48 +60,68 @@
       <div id="description">
         <ul class="list-group">
           <li class="list-group-item">
-            <h5 class="mb-1 d-inline-flex align-middle">Card number: </h5>
-            <span class="list-text d-inline-flex align-middle">0000 0000 0000 0000</span>
+            <h5 class="mb-1 d-inline-flex align-middle">Card Number: </h5>
+            <span class="list-text d-inline-flex align-middle">4420 3900 2211 0910</span>
           </li>
           <li class="list-group-item">
             <h5 class="mb-1 d-inline-flex align-middle">Balance: </h5>
-            <span class="list-text d-inline-flex align-middle" style="color:red">$1,000,000</span>
+            <span class="list-text d-inline-flex align-middle">$1,000,000</span>
           </li>
         </ul>
       </div>
     </div>
 
-  
-    <div id="record" onclick="record()">
-      <button id="microphone">
-        <i class="fas fa-microphone"></i>
-      </button>
-      <p>Speak with the customer</p>
+  <div id="translation" style="text-align:center; padding : 50px;" width = "400">
+    <div id = "original_text" style=" padding : 10px; color:green;">
+    </div>
+    <div id="translated_text" style=" padding : 10px;">
     </div>
 
-  <div id="translation" style="text-align:center; padding : 50px;" width = "400">
-    <div id = "original_text">
-    </div>
-    <div>
-    <button type = "submit" id = "translate" onclick="translate()">Translate</button></div>
-      <div id="translated_text">
+
+
+
+
+      <div id="callTimer" class="row justify-content-center">
+        <time>00:00:00</time>
+      </div>
+
+      <div id="record">
+        <button id="microphone" style="background-color:green">
+          <i class="fas fa-microphone"></i>
+        </button>
+        <p id="call-status">Start call</p>
 
       </div>
-  
+
+      <!-- <div>
+            <p class="phrase">Phrase...</p>
+            <p class="result">Right or wrong?</p>
+            <p class="output">...diagnostic messages</p>
+        </div> -->
+      <div class="justify-content-center">
+        <div id="language-selection" class="col">
+          <label>Language: </label>
+          <select id="langSelect" onchange="updateLang()">
+            <option value="da">Danish</option>
+            <option value="en" selected="select">English</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="hi">Hindi</option>
+            <option value="es">Spanish</option>
+          </select>
+        </div>
+      </div>
+      <div id="sentiment">Sentiment: 0</div>
+      <div class="justify-content-center">
+        <p id="output"></p>
+      </div>
+      <!--Scripts-->
+      <script type="text/javascript" src="js/customer.js"></script>
+
   </div>
 
-
-  <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-    crossorigin="anonymous"></script>
-
-     
-
-
     <script>
+      read();
       var recording = true;
       document.getElementById("infoButton").style.backgroundColor = "#4f92ff";
       document.getElementById("infoButton").style.color = "white";
@@ -125,24 +145,35 @@
         document.getElementById("infoButton").style.backgroundColor = "white";
         document.getElementById("infoButton").style.color = "#4f92ff";
       }
-    
-    function translate() {
-      var text = "";
+      function read() {
+        var text = null;
+        $.ajax({
+            url: 'http://104.236.71.248:8000/updates',
+            type: 'GET',
+            data: text
+        }).done(function(resp){
+          var lang = resp.lang === undefined ? 'English' : resp.lang;
+          document.getElementById("customer-language").innerHTML = ' - ' + lang;
+          translate(resp.text, "en");
+        });
+      }
+
+    function translate(text, language) {
       $.ajax({
           url: 'http://104.236.71.248:8000/submitSpeech',
           type: 'POST',
           data: {
-            text: "ટાવરની ઝુકાવા બાંધકામ દરમિયાન 12 મી સદીમાં શરૂ ",
-            to_language: "en"
+            text: text,
+            to_language: language
           },
       }).done(function(resp) {
+        customer_lang=resp.language;
           document.getElementById("original_text").innerHTML=resp.original_text;
           document.getElementById("translated_text").innerHTML=resp.new_text;
         //alert(this.response);
-});
-
+      });
     }
-  
+
     </script>
   </body>
 
