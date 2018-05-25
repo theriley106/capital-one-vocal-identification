@@ -12,8 +12,14 @@ var recurse = true;
 
 var transcript = '';
 
+var lang = document.getElementById("langSelect");
+
 function updateText(text) {
     document.getElementsByClassName("phrase")[0].innerHTML = text;
+}
+
+function updateLang(){
+  document.getElementById("customer-language").innerHTML = ' - ' + lang.options[lang.selectedIndex].text;
 }
 
 function testSpeech() {
