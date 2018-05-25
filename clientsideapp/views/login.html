@@ -6,30 +6,7 @@
       <link rel="icon" type="image/png" sizes="32x32" href="//cdn.shopify.com/s/files/1/1765/5971/t/10/assets/favicon-32x32.png?9610605222100492220">
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="stylesheets/login.css"/>
-
-      <!-- jQuery library -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-      <!-- Latest compiled JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script>
-        function validateformdata(){
-          var email = document.getElementById("login").elements[0].value;
-          var password = document.getElementById("login").elements[1].value;
-          var customer = document.getElementById("login").elements[2].checked;
-          var agent = document.getElementById("login").elements[3].checked;
-          
-          if(email != "" && password != "" && customer){
-            window.location = "http://localhost:9090/customer";
-          }
-          else if(email != "" && password != "" && agent){
-            window.location = "http://localhost:9090/agent";
-          }
-          
-        }
-
-          
-      </script>
     </head>
 
     <body>
@@ -48,14 +25,34 @@
           <label for="exampleInputPassword1" id="password-label">Password</label>
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <div id="roles" class="form-group">
-            <input type="radio" style = "padding:10px;" id="r1"  name="role" value="customer"> Customer
-            <input type="radio" style = "padding:10px;" id="r2" name="role" value="agent"> Agent
-          </div>
-          
-       
-      <button type="submit" class="btn btn-primary" id="submit-button" onclick="validateformdata()">Submit</button>
-        <button type="submit" class="btn btn-secondary"><a href="signup">Sign Up</a></button>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input type="radio" name="options" id="option1" autocomplete="off" checked>Customer
+          </label>
+          <label class="btn btn-secondary">
+            <input type="radio" name="options" id="option2" autocomplete="off">Support
+          </label>
+        </div>
+
+        <div id="submission">
+          <button type="submit" class="btn btn-primary" id="submit-button" onclick="validateformdata()">Submit</button>
+          <button type="submit" class="btn btn-secondary"><a href="signup">Sign Up</a></button>
+        </div>
       </form>
+      <script>
+        function validateformdata(){
+          var email = document.getElementById("login").elements[0].value;
+          var password = document.getElementById("login").elements[1].value;
+          var customer = document.getElementById("login").elements[2].checked;
+          var agent = document.getElementById("login").elements[3].checked;
+
+          if(email != "" && password != "" && customer){
+            window.location = "http://localhost:9090/customer";
+          }
+          else if(email != "" && password != "" && agent){
+            window.location = "http://localhost:9090/agent";
+          }
+        }
+      </script>
     </body>
 </html>
