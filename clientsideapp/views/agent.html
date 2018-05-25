@@ -85,11 +85,21 @@
       </div>
     </div>
 
-  <div id="translation" style="text-align:center; padding : 50px;" width = "400">
-    <div id = "original_text" style=" padding : 10px; color:green;">
-    </div>
-    <div id="translated_text" style=" padding : 10px;">
-    </div>
+    <div id="translation">
+      <div id="translation-text" class="row">
+        <div class="col-sm-6">
+          <h5>Customer</h5>
+          <div id="label" class="text-muted">Translation</div><p id="translation"></p>
+          <hr class="my-2">
+          <div id="label" class="text-muted d-inline-block">Sentiment</div><div id="sentiment" class="d-inline-block"></div>
+        </div>
+        <div class="col-sm-6">
+          <h5>Agent</h5>
+          <div id="label" class="text-muted">Original text</div><p id="output"></p>
+          <hr class="my-2">
+          <div id="label" class="text-muted">Translation</div><p id="agent-translation"></p>
+        </div>
+      </div>
 
 
 
@@ -103,8 +113,12 @@
         <button id="microphone" style="background-color:green">
           <i class="fas fa-microphone"></i>
         </button>
+<<<<<<< HEAD
+        <p id="call-status">Start speaking</p>
+=======
         <p id="call-status">Start call</p>
 
+>>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7
       </div>
 
       <!-- <div>
@@ -112,10 +126,10 @@
             <p class="result">Right or wrong?</p>
             <p class="output">...diagnostic messages</p>
         </div> -->
-      <div class="justify-content-center">
+      <div class="justify-content-center" style="text-align: center">
         <div id="language-selection" class="col">
           <label>Language: </label>
-          <select id="langSelect" onchange="updateLang()">
+          <select id="langSelect">
             <option value="da">Danish</option>
             <option value="en" selected="select">English</option>
             <option value="fr">French</option>
@@ -125,10 +139,13 @@
           </select>
         </div>
       </div>
+<<<<<<< HEAD
+=======
       <div id="sentiment">Sentiment: 0</div>
       <div class="justify-content-center">
         <p id="output"></p>
       </div>
+>>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7
       <!--Scripts-->
       <script type="text/javascript" src="js/customer.js"></script>
 
