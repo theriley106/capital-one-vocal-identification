@@ -137,13 +137,13 @@ def generateAudio():
 		text = text.partition("'")[2].partition(")]")[0][:-1]
 
 	print text
-	for val in splitWords(text)[::-1]:
+	for val in splitWords(text):
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
 	if len(allFiles['audio_files']) == 1:
 		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
 	else:
 		for i, val in enumerate(allFiles['audio_files']):
-			saveMP3(val, "{}.mp3".format(i))
+			saveMP3(val, "{}.mp3".format(str(i).zfill(2)))
 		os.system("mp3wrap output.mp3 *.mp3")
 		os.system("mv *MP3WRAP.mp3 static/output.mp3")
 		os.system('ls')
@@ -156,13 +156,13 @@ def partGenerateAudio(text):
 	except:
 		pass
 	allFiles = {"audio_files": []}
-	for val in splitWords(text)[::-1]:
+	for val in splitWords(text):
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
 	if len(allFiles['audio_files']) == 1:
 		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
 	else:
 		for i, val in enumerate(allFiles['audio_files']):
-			saveMP3(val, "{}.mp3".format(i))
+			saveMP3(val, "{}.mp3".format(str(i).zfill(2)))
 		os.system("mp3wrap output.mp3 *.mp3")
 		os.system("mv *MP3WRAP.mp3 static/output.mp3")
 		os.system('ls')
