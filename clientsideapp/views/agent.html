@@ -80,11 +80,11 @@
     </div>
 
   <div id="translation" style="text-align:center; padding : 50px;" width = "400">
-    <div id = "original_text">
+    <div id = "original_text" style=" padding : 10px;">
     </div>
     <div>
-    <button type = "submit" id = "translate" onclick="translate()">Translate</button></div>
-      <div id="translated_text">
+    <button type = "submit" id = "translate" onclick="translate('En Capital One, no solo pensamos en grandes cosas: hacemos grandes cosas. Fuimos la primera compañía en desarrollar y ofrecer personalización masiva y personalización de productos de tarjetas de crédito, y hemos estado innovando implacablemente desde entonces. Hoy en día, somos una marca reconocida a nivel nacional, un banco de los 10 principales y un laboratorio científico en un viaje para convertirnos en una empresa líder de alta tecnología e innovadora digital que toca más de 65 millones de cuentas de clientes. Fundada por Richard Warbank, presidente y consejero delegado, Capital One ha aumentado a $ 22 mil millones en ingresos en poco más de 20 años.','en')" style=" padding : 10px;">Translate customer speech</button></div>
+      <div id="translated_text" style=" padding : 10px;">
 
       </div>
   
@@ -102,6 +102,7 @@
 
 
     <script>
+        
       var recording = true;
       document.getElementById("infoButton").style.backgroundColor = "#4f92ff";
       document.getElementById("infoButton").style.color = "white";
@@ -126,22 +127,24 @@
         document.getElementById("infoButton").style.color = "#4f92ff";
       }
     
-    function translate() {
-      var text = "";
+    function translate(text, language) {
+      
       $.ajax({
           url: 'http://104.236.71.248:8000/submitSpeech',
           type: 'POST',
           data: {
-            text: "ટાવરની ઝુકાવા બાંધકામ દરમિયાન 12 મી સદીમાં શરૂ ",
-            to_language: "en"
+            text: text,
+            to_language: language
           },
       }).done(function(resp) {
+        customer_lang=resp.language;
           document.getElementById("original_text").innerHTML=resp.original_text;
           document.getElementById("translated_text").innerHTML=resp.new_text;
         //alert(this.response);
 });
 
     }
+    
   
     </script>
   </body>
