@@ -1,6 +1,7 @@
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+var recognition = new SpeechRecognition();
 
 var outputPara = document.querySelector('#output');
 var startBtn = $('#microphone');
@@ -9,10 +10,15 @@ var callStatus = document.querySelector('#call-status');
 var callTimer = document.querySelector('#callTimer');
 
 var seconds = 0, minutes = 0, hours = 0, t;
+var reset = false;
+var doTimer = 0;
 
-var recurse = true;
+var recurse = false;
 var isTranscribing = false;
 var transcript = '';
+var sentimentCount = 0;
+var sentimentVal = 0;
+var avgSentiment = 0;
 
 var lang = document.getElementById("langSelect");
 
@@ -25,19 +31,15 @@ function updateLang() {
 }
 
 function testSpeech() {
-  startBtn.prop('disabled', true);
-  callStatus.innerHTML = "End Call";
-  startBtn.css("background-color", "red");
   $('#microphone').find('i').addClass('fa-phone-slash');
   $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
-/* Start timer */
-callTimer.textContent = "00:00:00";
-seconds = 0; minutes = 0; hours = 0;
 
   var language = document.getElementById("langSelect").value;
-  var recognition = new SpeechRecognition();
+
   var speechRecognitionList = new SpeechGrammarList();
+
+
 
   recognition.grammars = speechRecognitionList;
   recognition.lang = language;
@@ -60,51 +62,24 @@ seconds = 0; minutes = 0; hours = 0;
     speechResult.push(event.results[0][0].transcript);
     increment = increment + 1;
     outputPara.textContent = transcript + ' ' + speechResult[increment];
+
   }
 
   recognition.onspeechend = function() {
-    recognition.stop();
-    startBtn.disabled = false;
-    // startBtn.textContent = 'Start new test';
-    startBtn.onclick = function(){
-        $('#microphone').find('i').addClass('fa-phone');
-        $('#microphone').find('i').removeClass('fa-phone-slash');
-        recurse = false;
-        callStatus.innerHTML = "Start Call";
-        startBtn.style.backgroundColor = "green";
-        console.log("Finally it stopped!");
-        startBtn.disabled = true;
-    }
 
-    if (recurse) {
-        testSpeech();
-    }
+    recognition.stop();
+    // startBtn.textContent = 'Start new test';
+
+
 }
 
     recognition.onspeechend = function () {
         recognition.stop();
-        startBtn.disabled = false;
         // startBtn.textContent = 'Start new test';
-        startBtn.onclick = function () {
-            //changing style of button when call ends
-            $('#microphone').find('i').addClass('fa-phone');
-            $('#microphone').find('i').removeClass('fa-phone-slash');
-            recurse = false;
-            callStatus.innerHTML = "Start Call";
-            startBtn.style.backgroundColor = "green";
-            /* Stop timer */
-            clearTimeout(t);
-            console.log("Finally it stopped!");
-            startBtn.disabled = true;
-        }
-        if (recurse) {
-            testSpeech();
-        }
 
     }
 
     recognition.onerror = function (event) {
-        startBtn.disabled = false;
         // startBtn.textContent = 'Start new test';
         // outputPara.textContent = 'Call Timed Out:' + event.error;
     }
@@ -130,8 +105,18 @@ seconds = 0; minutes = 0; hours = 0;
           },
       }).done(function(resp) {
           console.log(resp);
+          sentiment = resp.sentiment;
+          sentimentVal = sentiment + sentimentVal;
+          sentimentCount = sentimentCount + 1;
+          console.log(sentimentVal);
+          console.log(sentimentCount);
+          avgSentiment = sentimentVal/sentimentCount;
+          document.getElementsByClassName("sentiment")[0].innerHTML = avgSentiment;
+
       });
-      
+      if(recurse){
+      testSpeech();
+        }
       console.log('SpeechRecognition.onend');
   }
 
@@ -182,12 +167,43 @@ function timer() {
 
 $(startBtn).click(function() {
     console.log('clicked');
-    if (isTranscribing) {
-        isTranscribing = false;
-        recognition.stop();
-    } else {
-        isTranscribing = true;
-        testSpeech();
+    if(doTimer%2===0){
+        console.log("SHOULD BE TIMING");
+        /* Start timer */
+        callTimer.textContent = "00:00:00";
+        seconds = 0; minutes = 0; hours = 0;
         timer();
+        doTimer = doTimer + 1;
+    } else {
+        doTimer = doTimer + 1;
     }
+
+    recurse = !recurse;
+    console.log(recurse);
+    if(!recurse){
+
+        recognition.stop();
+
+
+    }
+    if(recurse){
+        callStatus.innerHTML = "End Call";
+        startBtn.css("background-color", "red");
+    }
+
+    else {
+        $('#microphone').find('i').addClass('fa-phone');
+        $('#microphone').find('i').removeClass('fa-phone-slash');
+        callStatus.innerHTML = "Start Call";
+        startBtn.css("background-color", "#1f9c25");
+        reset = true;
+        callStatus.innerHTML = "Start Call";
+        startBtn.css("background-color", "green");
+    }
+    if(reset){
+        clearTimeout(t);
+        reset = false;
+        console.log("reset");
+    }
+    testSpeech();
 });
