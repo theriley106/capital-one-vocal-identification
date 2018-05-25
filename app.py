@@ -82,8 +82,7 @@ def generateUpdate():
 	if request.method == 'POST':
 		try:
 			print request.form
-			g = str(request.form).split("\n\n")
-			text = g[1].partition("\n")[0]
+			text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
 			with open('updates.txt', 'w') as the_file:
 				the_file.write(text)
 			return jsonify({"success": True})
