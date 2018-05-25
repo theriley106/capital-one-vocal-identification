@@ -7,6 +7,30 @@
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="stylesheets/login.css"/>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<<<<<<< HEAD
+
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script>
+        function validateformdata(){
+          var email = document.getElementById("login").elements[0].value;
+          var password = document.getElementById("login").elements[1].value;
+          var customer = document.getElementById("login").elements[2].checked;
+          var agent = document.getElementById("login").elements[3].checked;
+          
+          if(email != "" && password != "" && customer){
+            window.location += "customer";
+          }
+          else if(email != "" && password != "" && agent){
+            window.location += "agent";
+          }
+          
+        }
+
+          
+      </script>
+=======
+>>>>>>> c99cfd60416955f4a51a52fa6402367d38251f39
     </head>
 
     <body>
