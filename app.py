@@ -84,7 +84,12 @@ def generateUpdate():
 	if request.method == 'POST':
 		try:
 			print request.form
-			text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
+			#text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
+			text = str(request.form).partition("'text', ")[2]
+			if '"' in str(text)[:5]:
+				text = text.partition('"')[2].partition(")]")[0][:-1]
+			else:
+				text = text.partition("'")[2].partition(")]")[0][:-1]
 			partGenerateAudio(text)
 			with open('updates.txt', 'w') as the_file:
 				the_file.write(text)
@@ -125,7 +130,12 @@ def generateAudio():
 		pass
 	allFiles = {"audio_files": []}
 	print str(request.form)
-	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition(")]")[0][:-1]
+	text = str(request.form).partition("'text', ")[2]
+	if '"' in str(text)[:5]:
+		text = text.partition('"')[2].partition(")]")[0][:-1]
+	else:
+		text = text.partition("'")[2].partition(")]")[0][:-1]
+
 	print text
 	for val in splitWords(text)[::-1]:
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
