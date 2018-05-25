@@ -119,7 +119,7 @@ def generateAudio():
 	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
 	for val in splitWords(text):
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', text), 'en'))
-	return jsonfiy(allFiles)
+	return jsonify(allFiles)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8000)
