@@ -24,6 +24,16 @@
     crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
+  <body>
+    <header>
+      <img id="profile-picture" src="placeholder.png" class="rounded">
+      <div id="customer" class="align-middle">
+        Adam Schueller
+      </div>
+      <div id="customer-language" class="align-middle">
+        - English
+      </div>
+    </header>
 
     <nav class="nav nav-pills nav-fill tabs">
       <a class="nav-item nav-link" id="infoButton" href="#" onclick="showInfo()">Customer Information</a>
@@ -71,32 +81,7 @@
       </div>
     </div>
 
-  <div id="account-information" class="text-field">
-    <h4 style="text-align: center">Account Information</h4>
-    <div id="description">
-      <ul class="list-group">
-        <li class="list-group-item">
-          <h5 class="mb-1 d-inline-flex align-middle">Account number: </h5>
-          <span class="list-text d-inline-flex align-middle">000 000 000 0000</span>
-        </li>
-        <li class="list-group-item">
-          <h5 class="mb-1 d-inline-flex align-middle">Address: </h5>
-          <span class="list-text d-inline-flex align-middle">109 Tindall Road</span>
-        </li>
-        <li class="list-group-item">
-          <h5 class="mb-1 d-inline-flex align-middle">City: </h5>
-          <span class="list-text d-inline-flex align-middle">Mars</span>
-        </li>
-        <li class="list-group-item">
-          <h5 class="mb-1 d-inline-flex align-middle">State: </h5>
-          <span class="list-text d-inline-flex align-middle">PA</span>
-        </li>
-        <li class="list-group-item">
-          <h5 class="mb-1 d-inline-flex align-middle">Zip code: </h5>
-          <span class="list-text d-inline-flex align-middle">16046</span>
-        </li>
-      </ul>
-    </div>
+  
     <div id="record" onclick="record()">
       <button id="microphone">
         <i class="fas fa-microphone"></i>
@@ -114,12 +99,7 @@
       </div>
   
   </div>
-  <div id="record" onclick="record()">
-    <button id="microphone">
-      <i class="fas fa-microphone"></i>
-    </button>
-    <p>Speak with the customer</p>
-  </div>
+
 
   <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script> -->
@@ -128,17 +108,16 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
 
-  <script>
-    var recording = true;
-    document.getElementById("infoButton").style.backgroundColor = "#4f92ff";
-    document.getElementById("infoButton").style.color = "white";
-    document.getElementById("requestButton").style.backgroundColor = "white";
-    document.getElementById("requestButton").style.color = "#4f92ff";
-    document.getElementById("translation").style.display = "none";
+     
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+      crossorigin="anonymous"></script>
 
-    function showInfo() {
-      document.getElementById("translation").style.display = "none";
-      document.getElementById("account-information").style.display = "block";
+    <script>
+      var recording = true;
       document.getElementById("infoButton").style.backgroundColor = "#4f92ff";
       document.getElementById("infoButton").style.color = "white";
       document.getElementById("requestButton").style.backgroundColor = "white";
@@ -161,7 +140,7 @@
         document.getElementById("infoButton").style.backgroundColor = "white";
         document.getElementById("infoButton").style.color = "#4f92ff";
       }
-    }
+    
     function translate() {
       var text = "";
       $.ajax({
@@ -178,14 +157,7 @@
 });
 
     }
-  </script>
-</body>
-
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-
-        xhr.send(data);
-      }
+  
     </script>
   </body>
 
