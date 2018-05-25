@@ -84,11 +84,11 @@ def generateComment():
 			g = str(request.form).split("\n\n")
 			text = g[1].partition("\n")[0]
 			with open('updates.txt', 'w') as the_file:
-	    		the_file.write(text)
-	    	return jsonify({"success": True})
-	    except Exception as exp:
-	    	print exp
-	    	return jsonify({"success": False})
+				the_file.write(text)
+			return jsonify({"success": True})
+		except Exception as exp:
+			print exp
+			return jsonify({"success": False})
 	if request.method == 'GET':
 		try:
 			e = open("updates.txt").read().strip()
