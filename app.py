@@ -118,6 +118,8 @@ def splitWords(string):
 
 @app.route('/getAudio', methods=["POST"])
 def generateAudio():
+	os.system("rm *.mp3")
+	os.system("rm static/output.mp3")
 	allFiles = {"audio_files": []}
 	print str(request.form)
 	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition(")]")[0][:-1]
@@ -126,20 +128,20 @@ def generateAudio():
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
 	for i, val in enumerate(allFiles['audio_files']):
 		saveMP3(val, "{}.mp3".format(i))
-	os.system("rm *.mp3")
-	os.system("rm static/output.mp3")
+
 	os.system("mp3wrap output.mp3 *.mp3")
 	os.system("mv *MP3WRAP.mp3 static/output.mp3")
 	return jsonify(allFiles)
 
 def partGenerateAudio(text):
+
+	os.system("rm *.mp3")
+	os.system("rm static/output.mp3")
 	allFiles = {"audio_files": []}
 	for val in splitWords(text)[::-1]:
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
 	for i, val in enumerate(allFiles['audio_files']):
 		saveMP3(val, "{}.mp3".format(i))
-	os.system("rm *.mp3")
-	os.system("rm static/output.mp3")
 	os.system("mp3wrap output.mp3 *.mp3")
 	os.system("mv *MP3WRAP.mp3 static/output.mp3")
 	return allFiles
@@ -159,4 +161,4 @@ def audio():
 
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=8000)
+	app.run(host='0.0.0.0', port=8000, threaded=True)
