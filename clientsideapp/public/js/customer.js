@@ -5,6 +5,11 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 var outputPara = document.querySelector('#output');
 var startBtn = $('#microphone');
 var callStatus = document.querySelector('#call-status');
+
+var callTimer = document.querySelector('#callTimer');
+
+var seconds = 0, minutes = 0, hours = 0, t;
+
 var recurse = true;
 var isTranscribing = false;
 var transcript = '';
@@ -15,8 +20,8 @@ function updateText(text) {
   document.getElementsByClassName("phrase")[0].innerHTML = text;
 }
 
-function updateLang(){
-  document.getElementById("customer-language").innerHTML = ' - ' + lang.options[lang.selectedIndex].text;
+function updateLang() {
+    document.getElementById("customer-language").innerHTML = ' - ' + lang.options[lang.selectedIndex].text;
 }
 
 function testSpeech() {
@@ -26,6 +31,10 @@ function testSpeech() {
   $('#microphone').find('i').addClass('fa-phone-slash');
   $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
+/* Start timer */
+callTimer.textContent = "00:00:00";
+seconds = 0; minutes = 0; hours = 0;
+
   var language = document.getElementById("langSelect").value;
   var recognition = new SpeechRecognition();
   var speechRecognitionList = new SpeechGrammarList();
@@ -72,11 +81,33 @@ function testSpeech() {
     }
 }
 
-  recognition.onerror = function(event) {
-    startBtn.disabled = false;
-    // startBtn.textContent = 'Start new test';
-    // outputPara.textContent = 'Call Timed Out:' + event.error;
-  }
+    recognition.onspeechend = function () {
+        recognition.stop();
+        startBtn.disabled = false;
+        // startBtn.textContent = 'Start new test';
+        startBtn.onclick = function () {
+            //changing style of button when call ends
+            $('#microphone').find('i').addClass('fa-phone');
+            $('#microphone').find('i').removeClass('fa-phone-slash');
+            recurse = false;
+            callStatus.innerHTML = "Start Call";
+            startBtn.style.backgroundColor = "green";
+            /* Stop timer */
+            clearTimeout(t);
+            console.log("Finally it stopped!");
+            startBtn.disabled = true;
+        }
+        if (recurse) {
+            testSpeech();
+        }
+
+    }
+
+    recognition.onerror = function (event) {
+        startBtn.disabled = false;
+        // startBtn.textContent = 'Start new test';
+        // outputPara.textContent = 'Call Timed Out:' + event.error;
+    }
 
   recognition.onaudiostart = function(event) {
       //Fired when the user agent has started to capture audio.
@@ -99,20 +130,7 @@ function testSpeech() {
           },
       }).done(function(resp) {
           console.log(resp);
-        //alert(this.response);
       });
-      //Fired when the speech recognition service has disconnected.
-      /*transcript = outputPara.textContent + '. ';
-      var xhr=new XMLHttpRequest();
-      xhr.open('post',"http://http://104.236.71.248:8000/startSpeech",true);
-      //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");<--don't do this
-      var formData=new FormData();
-      formData.append('info',transcript);    // makes no difference
-      xhr.send(formData);
-      xhr.onload=function() {
-          alert(this.response);
-      };*/
-
       
       console.log('SpeechRecognition.onend');
   }
@@ -142,6 +160,26 @@ function testSpeech() {
   }
 }
 
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+
+    callTimer.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+
+function timer() {
+    t = setTimeout(add, 1000);
+}
+
 $(startBtn).click(function() {
     console.log('clicked');
     if (isTranscribing) {
@@ -150,5 +188,6 @@ $(startBtn).click(function() {
     } else {
         isTranscribing = true;
         testSpeech();
+        timer();
     }
 });
