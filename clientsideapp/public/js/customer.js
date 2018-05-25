@@ -109,8 +109,6 @@ seconds = 0; minutes = 0; hours = 0;
         // outputPara.textContent = 'Call Timed Out:' + event.error;
     }
 
-    recognition.onaudiostart = function (event) {
-
   recognition.onaudiostart = function(event) {
       //Fired when the user agent has started to capture audio.
       console.log('SpeechRecognition.onaudiostart');
