@@ -10,6 +10,8 @@ var callStatus = document.querySelector('#call-status');
 var callTimer = document.querySelector('#callTimer');
 
 var seconds = 0, minutes = 0, hours = 0, t;
+var reset = false;
+var doTimer = 0;
 
 var recurse = false;
 var isTranscribing = false;
@@ -29,9 +31,6 @@ function testSpeech() {
   $('#microphone').find('i').addClass('fa-phone-slash');
   $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
-/* Start timer */
-callTimer.textContent = "00:00:00";
-seconds = 0; minutes = 0; hours = 0;
 
   var language = document.getElementById("langSelect").value;
 
@@ -157,6 +156,17 @@ function timer() {
 
 $(startBtn).click(function() {
     console.log('clicked');
+    if(doTimer%2===0){
+        console.log("SHOULD BE TIMING");
+        /* Start timer */
+        callTimer.textContent = "00:00:00";
+        seconds = 0; minutes = 0; hours = 0;
+        timer();
+        doTimer = doTimer + 1;
+    } else {
+        doTimer = doTimer + 1;
+    }
+
     recurse = !recurse;
     console.log(recurse);
     if(!recurse){
@@ -171,14 +181,14 @@ $(startBtn).click(function() {
     }
 
     else {
+        reset = true;
         callStatus.innerHTML = "Start Call";
         startBtn.css("background-color", "green");
-
+    }
+    if(reset){
+        clearTimeout(t);
+        reset = false;
+        console.log("reset");
     }
     testSpeech();
-    timer();
-
-
-
-
 });
