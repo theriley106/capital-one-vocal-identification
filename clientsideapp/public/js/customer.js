@@ -8,6 +8,10 @@ var startBtn = document.querySelector('#microphone');
 
 var callStatus = document.querySelector('#call-status');
 
+var callTimer = document.querySelector('#callTimer');
+
+var seconds = 0, minutes = 0, hours = 0, t;
+
 var recurse = true;
 
 var transcript = '';
@@ -18,60 +22,68 @@ function updateText(text) {
     document.getElementsByClassName("phrase")[0].innerHTML = text;
 }
 
-function updateLang(){
-  document.getElementById("customer-language").innerHTML = ' - ' + lang.options[lang.selectedIndex].text;
+function updateLang() {
+    document.getElementById("customer-language").innerHTML = ' - ' + lang.options[lang.selectedIndex].text;
 }
 
 function testSpeech() {
-  startBtn.disabled = true;
-  callStatus.innerHTML = "End Call";
-  startBtn.style.backgroundColor = "red";
-  $('#microphone').find('i').addClass('fa-phone-slash');
-  $('#microphone').find('i').removeClass('fa-phone');
-//   startBtn.textContent = 'Test in progress';
-  var language = document.getElementById("langSelect").value;
-  var recognition = new SpeechRecognition();
-  var speechRecognitionList = new SpeechGrammarList();
+    startBtn.disabled = true;
+    //change style for call button
+    callStatus.innerHTML = "End Call";
+    startBtn.style.backgroundColor = "red";
+    $('#microphone').find('i').addClass('fa-phone-slash');
+    $('#microphone').find('i').removeClass('fa-phone');
+    //   startBtn.textContent = 'Test in progress';
+    /* Start timer */
+    callTimer.textContent = "00:00:00";
+    seconds = 0; minutes = 0; hours = 0;
+    startBtn.onclick = timer();
+    var language = document.getElementById("langSelect").value;
+    var recognition = new SpeechRecognition();
+    var speechRecognitionList = new SpeechGrammarList();
 
-  recognition.grammars = speechRecognitionList;
-  recognition.lang = language;
-  recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
+    recognition.grammars = speechRecognitionList;
+    recognition.lang = language;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
 
-  recognition.start();
-  var speechResult = [];
-  var increment = -1;
+    recognition.start();
+    var speechResult = [];
+    var increment = -1;
 
-  recognition.onresult = function() {
-    // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
-    // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
-    // It has a getter so it can be accessed like an array
-    // The first [0] returns the SpeechRecognitionResult at position 0.
-    // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
-    // These also have getters so they can be accessed like arrays.
-    // The second [0] returns the SpeechRecognitionAlternative at position 0.
-    // We then return the transcript property of the SpeechRecognitionAlternative object
-    speechResult.push(event.results[0][0].transcript);
-    increment = increment + 1;
-    outputPara.textContent = transcript + ' ' + speechResult[increment];
-  }
-
-  recognition.onspeechend = function() {
-    recognition.stop();
-    startBtn.disabled = false;
-    // startBtn.textContent = 'Start new test';
-    startBtn.onclick = function(){
-        $('#microphone').find('i').addClass('fa-phone');
-        $('#microphone').find('i').removeClass('fa-phone-slash');
-        recurse = false;
-        callStatus.innerHTML = "Start Call";
-        startBtn.style.backgroundColor = "green";
-        console.log("Finally it stopped!");
-        startBtn.disabled = true;
+    recognition.onresult = function () {
+        // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+        // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+        // It has a getter so it can be accessed like an array
+        // The first [0] returns the SpeechRecognitionResult at position 0.
+        // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+        // These also have getters so they can be accessed like arrays.
+        // The second [0] returns the SpeechRecognitionAlternative at position 0.
+        // We then return the transcript property of the SpeechRecognitionAlternative object
+        speechResult.push(event.results[0][0].transcript);
+        increment = increment + 1;
+        outputPara.textContent = transcript + ' ' + speechResult[increment];
     }
-    if (recurse) {
-        testSpeech();
-    }
+
+    recognition.onspeechend = function () {
+        recognition.stop();
+        startBtn.disabled = false;
+        // startBtn.textContent = 'Start new test';
+        startBtn.onclick = function () {
+            //changing style of button when call ends
+            $('#microphone').find('i').addClass('fa-phone');
+            $('#microphone').find('i').removeClass('fa-phone-slash');
+            recurse = false;
+            callStatus.innerHTML = "Start Call";
+            startBtn.style.backgroundColor = "green";
+            /* Stop timer */
+            clearTimeout(t);
+            console.log("Finally it stopped!");
+            startBtn.disabled = true;
+        }
+        if (recurse) {
+            testSpeech();
+        }
 
     }
 
@@ -131,6 +143,26 @@ function testSpeech() {
         //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
         console.log('SpeechRecognition.onstart');
     }
+}
+
+function add() {
+    seconds++;
+    if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+        }
+    }
+
+    callTimer.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+    timer();
+}
+
+function timer() {
+    t = setTimeout(add, 1000);
 }
 
 startBtn.addEventListener('click', testSpeech);
