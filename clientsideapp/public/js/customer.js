@@ -62,15 +62,12 @@ function testSpeech() {
   }
 
   recognition.onend = function(event) {
-    console.log(lang.options[lang.selectedIndex].value)
+    var text = ""
       var transcript = outputPara.textContent + '. | ' + lang.options[lang.selectedIndex].value;
       $.ajax({
           url: 'http://104.236.71.248:8000/updates',
           type: 'POST',
-          data: {
-            text: transcript,
-            lang: language
-          },
+          data: text
       }).done(function(resp) {
           /*sentiment = resp.sentiment;
           sentimentVal = sentiment + sentimentVal;
@@ -79,7 +76,7 @@ function testSpeech() {
           console.log(sentimentCount);
           avgSentiment = sentimentVal/sentimentCount;
           sentPara.textContent = "Sentiment: " + avgSentiment.toFixed(2);*/
-          console.log(resp);
+          console.log(resp.text);
           updateText(resp.text)
       });
       if(recurse){
