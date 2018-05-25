@@ -1,9 +1,9 @@
 body{
   font-size: 12px;
+  width: 100%;
 }
 
 header{
-  width: 100%;
   display: inline-block;
   text-align: center;
   padding-top: 25px;
@@ -70,9 +70,8 @@ header{
 
 #call-status{
     font-size: 20px;
-    min-width: 65px;
-    min-height: 35px;
-    margin: auto;
+    margin-left: 25%;
+    margin-right: 25%;
 }
 
 #language-selection{
@@ -89,6 +88,11 @@ header{
 
 #microphone{
   margin-top: 5%;
+  text-align: center;
+}
+
+#record{
+  margin-top: 1.5%;
   text-align: center;
 }
 

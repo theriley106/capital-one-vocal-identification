@@ -45,6 +45,10 @@ body{
   font-size: 1.75em;
 }
 
+#description{
+  margin-bottom: 1.5%;
+}
+
 header{
   display: inline-block;
   text-align: center;
