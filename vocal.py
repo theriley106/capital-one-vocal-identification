@@ -34,5 +34,5 @@ if __name__ == '__main__':
 	#print translateText(a.encode('utf-8'), "en")
 	text = raw_input("Words: ")
 	text = translateText(text, 'hi')
-	print generateURL("बिनावास", 'en')
+	print generateURL(text, 'hi')
 

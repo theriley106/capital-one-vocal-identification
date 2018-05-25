@@ -90,6 +90,11 @@ def generateUpdate():
 				text = text.partition('"')[2].partition(")]")[0][:-1]
 			else:
 				text = text.partition("'")[2].partition(")]")[0][:-1]
+			languageVal = text.partition("| ")[2].partition("'")[0].partition('"')[0].strip()
+			text = text.partition('|')[0]
+			print text
+			print languageVal
+			text = vocal.translateText(text, languageVal)
 			partGenerateAudio(text)
 			with open('updates.txt', 'w') as the_file:
 				the_file.write(text)
