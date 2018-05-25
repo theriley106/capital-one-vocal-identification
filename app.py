@@ -136,6 +136,7 @@ def partGenerateAudio(text):
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
 	for i, val in enumerate(allFiles['audio_files']):
 		saveMP3(val, "{}.mp3".format(i))
+	os.system("rm static/output.mp3")
 	os.system("mp3wrap output.mp3 *.mp3")
 	os.system("mv *MP3WRAP.mp3 static/output.mp3")
 	return allFiles
