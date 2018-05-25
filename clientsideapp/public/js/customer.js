@@ -13,6 +13,7 @@ var seconds = 0, minutes = 0, hours = 0, t;
 
 var recurse = false;
 var isTranscribing = false;
+var isRecognizing = false;
 var transcript = '';
 
 var lang = document.getElementById("langSelect");
@@ -26,8 +27,6 @@ function updateLang() {
 }
 
 function testSpeech() {
-  $('#microphone').find('i').addClass('fa-phone-slash');
-  $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
 /* Start timer */
 callTimer.textContent = "00:00:00";
@@ -36,15 +35,14 @@ seconds = 0; minutes = 0; hours = 0;
   var language = document.getElementById("langSelect").value;
 
   var speechRecognitionList = new SpeechGrammarList();
-
-
-
+  
   recognition.grammars = speechRecognitionList;
   recognition.lang = language;
   recognition.interimResults = true;
   recognition.maxAlternatives = 0;
 
   recognition.start();
+  isRecognizing = true;
   var speechResult = [];
   var increment = -1;
 
@@ -65,14 +63,14 @@ seconds = 0; minutes = 0; hours = 0;
 
   recognition.onspeechend = function() {
 
-    recognition.stop();
+    stopRecognition();
     // startBtn.textContent = 'Start new test';
 
 
 }
 
     recognition.onspeechend = function () {
-        recognition.stop();
+        stopRecognition();
         // startBtn.textContent = 'Start new test';
 
     }
@@ -155,30 +153,26 @@ function timer() {
     t = setTimeout(add, 1000);
 }
 
+function stopRecognition() {
+    isRecognizing = false;
+    recognition.stop();
+}
+
 $(startBtn).click(function() {
-    console.log('clicked');
     recurse = !recurse;
-    console.log(recurse);
-    if(!recurse){
 
-        recognition.stop();
-
-
-    }
-    if(recurse){
+    if (recurse) {
         callStatus.innerHTML = "End Call";
         startBtn.css("background-color", "red");
-    }
-
-    else {
+        $('#microphone').find('i').addClass('fa-phone-slash');
+        $('#microphone').find('i').removeClass('fa-phone');
+        testSpeech();
+        timer();
+    } else {
+        recognition.stop();
         callStatus.innerHTML = "Start Call";
         startBtn.css("background-color", "green");
-
+        $('#microphone').find('i').addClass('fa-phone');
+        $('#microphone').find('i').removeClass('fa-phone-slash');
     }
-    testSpeech();
-    timer();
-
-
-
-
 });
