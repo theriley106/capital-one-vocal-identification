@@ -64,6 +64,50 @@
   </div>
   <!--Scripts-->
   <script type="text/javascript" src="js/customer.js"></script>
+  <!-- Chris' really bad code tbh-->
+
+<script>
+
+    function playSound(url){
+      var audio = document.createElement('audio');
+      audio.style.display = "none";
+      audio.src = url;
+      audio.autoplay = true;
+      audio.onended = function(){
+        audio.remove() //Remove when played.
+      };
+      document.body.appendChild(audio);
+    }
+
+    function httpGet(theUrl)
+    // The network request grabs the json containing mp3 structure
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+      console.log("Works")
+
+      jsonString = httpGet("http://104.236.71.248:8000/updates");
+      // This is the actual file structure
+      obVal = JSON.parse(jsonString);
+      var obj = obVal.text;
+      var prevVal = String(obj);
+      setInterval(function(){
+        let music = document.getElementById('music');
+        jsonString = httpGet("http://104.236.71.248:8000/updates");
+      obVal = JSON.parse(jsonString);
+      var obj = obVal.text;
+      console.log(obj);
+      if (String(prevVal) != String(obj)){
+        playSound('http://104.236.71.248:8000/static/output.mp3?ch=' + String(parseInt((Math.random() * ((900000000 - 1) + 1)))));
+      }
+      prevVal = String(obj);
+       }, 2000);
+
+</script>
+
 </body>
 
 </html>
