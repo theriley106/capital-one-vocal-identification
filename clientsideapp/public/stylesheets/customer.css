@@ -15,14 +15,14 @@
     align-content:center;
 }
 
-#microphone{
-  background-color: #4f92ff;
-  text-align: center;
-  border-radius: 50%;
-  width: 75px;
-  height: 75px;
-  outline: none;
+.mic{
+    border-radius: 50%;
+    background: #4286f4;
+    text-align: center;
+    padding: 20px 20px;
+    color: #ffffff;
 }
+
 
 #language-selection{
     text-align:center;
