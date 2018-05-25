@@ -19,6 +19,7 @@ var transcript = '';
 var sentimentCount = 0;
 var sentimentVal = 0;
 var avgSentiment = 0;
+var sentPara = document.querySelector('#sentiment');
 
 var lang = document.getElementById("langSelect");
 
@@ -26,20 +27,17 @@ function updateText(text) {
   document.getElementsByClassName("phrase")[0].innerHTML = text;
 }
 
+
 function updateLang() {
     document.getElementById("customer-language").innerHTML = ' - ' + lang.options[lang.selectedIndex].text;
 }
 
 function testSpeech() {
-  $('#microphone').find('i').addClass('fa-phone-slash');
-  $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
 
   var language = document.getElementById("langSelect").value;
 
   var speechRecognitionList = new SpeechGrammarList();
-
-
 
   recognition.grammars = speechRecognitionList;
   recognition.lang = language;
@@ -111,7 +109,8 @@ function testSpeech() {
           console.log(sentimentVal);
           console.log(sentimentCount);
           avgSentiment = sentimentVal/sentimentCount;
-          document.getElementsByClassName("sentiment")[0].innerHTML = avgSentiment;
+          sentPara.textContent = "Sentiment: " + avgSentiment.toFixed(2);
+
 
       });
       if(recurse){
@@ -181,22 +180,20 @@ $(startBtn).click(function() {
     recurse = !recurse;
     console.log(recurse);
     if(!recurse){
-
         recognition.stop();
-
-
     }
     if(recurse){
+      $('#microphone').find('i').removeClass('fa-microphone');
+      $('#microphone').find('i').addClass('fa-microphone-slash');
         callStatus.innerHTML = "End Call";
         startBtn.css("background-color", "red");
     }
 
     else {
-        $('#microphone').find('i').addClass('fa-phone');
-        $('#microphone').find('i').removeClass('fa-phone-slash');
-        callStatus.innerHTML = "Start Call";
-        startBtn.css("background-color", "#1f9c25");
+        $('#microphone').find('i').addClass('fa-microphone');
+        $('#microphone').find('i').removeClass('fa-microphone-slash');
         reset = true;
+        callTimer.textContent = "00:00:00";
         callStatus.innerHTML = "Start Call";
         startBtn.css("background-color", "green");
     }
