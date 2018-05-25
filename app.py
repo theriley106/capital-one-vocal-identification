@@ -129,14 +129,15 @@ def generateAudio():
 	print text
 	for val in splitWords(text)[::-1]:
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
-	for i, val in enumerate(allFiles['audio_files']):
-		saveMP3(val, "{}.mp3".format(i))
-	time.sleep(1)
-
-	os.system("mp3wrap output.mp3 *.mp3")
-	os.system("mv *MP3WRAP.mp3 static/output.mp3")
-	os.system('ls')
-	return jsonify(allFiles)
+	if len(allFiles['audio_files']) == 1:
+		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
+	else:
+		for i, val in enumerate(allFiles['audio_files']):
+			saveMP3(val, "{}.mp3".format(i))
+		os.system("mp3wrap output.mp3 *.mp3")
+		os.system("mv *MP3WRAP.mp3 static/output.mp3")
+		os.system('ls')
+	return allFiles
 
 def partGenerateAudio(text):
 	try:
@@ -147,12 +148,14 @@ def partGenerateAudio(text):
 	allFiles = {"audio_files": []}
 	for val in splitWords(text)[::-1]:
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
-	for i, val in enumerate(allFiles['audio_files']):
-		saveMP3(val, "{}.mp3".format(i))
-	time.sleep(1)
-	os.system("mp3wrap output.mp3 *.mp3")
-	os.system("mv *MP3WRAP.mp3 static/output.mp3")
-	os.system('ls')
+	if len(allFiles['audio_files']) == 1:
+		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
+	else:
+		for i, val in enumerate(allFiles['audio_files']):
+			saveMP3(val, "{}.mp3".format(i))
+		os.system("mp3wrap output.mp3 *.mp3")
+		os.system("mv *MP3WRAP.mp3 static/output.mp3")
+		os.system('ls')
 	return allFiles
 
 def saveMP3(mp3URL, fileName):
