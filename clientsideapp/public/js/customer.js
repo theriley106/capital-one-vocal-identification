@@ -4,8 +4,8 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 
 var outputPara = document.querySelector('#output');
 
-var startBtn = document.querySelector('#start-button');
-var mic = document.querySelector('.mic');
+var startBtn = document.querySelector('#microphone');
+
 var callStatus = document.querySelector('#call-status');
 
 var recurse = true;
@@ -17,37 +17,52 @@ function updateText(text) {
 }
 
 function testSpeech() {
-    startBtn.disabled = true;
-    callStatus.innerHTML = "End Call";
-    mic.style.background = "#1d5cc1";
-    //   startBtn.textContent = 'Test in progress';
-    var language = document.getElementById("langSelect").value;
-    var recognition = new SpeechRecognition();
-    var speechRecognitionList = new SpeechGrammarList();
+  startBtn.disabled = true;
+  callStatus.innerHTML = "End Call";
+  startBtn.style.backgroundColor = "red";
+  $('#microphone').find('i').addClass('fa-phone-slash');
+  $('#microphone').find('i').removeClass('fa-phone');
+//   startBtn.textContent = 'Test in progress';
+  var language = document.getElementById("langSelect").value;
+  var recognition = new SpeechRecognition();
+  var speechRecognitionList = new SpeechGrammarList();
 
-    recognition.grammars = speechRecognitionList;
-    recognition.lang = language;
-    console.log(language);
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 1;
+  recognition.grammars = speechRecognitionList;
+  recognition.lang = language;
+  console.log(language);
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
 
-    recognition.start();
-    var speechResult = [];
-    var increment = -1;
+  recognition.start();
+  var speechResult = [];
+  var increment = -1;
 
-    recognition.onresult = function () {
-        // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
-        // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
-        // It has a getter so it can be accessed like an array
-        // The first [0] returns the SpeechRecognitionResult at position 0.
-        // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
-        // These also have getters so they can be accessed like arrays.
-        // The second [0] returns the SpeechRecognitionAlternative at position 0.
-        // We then return the transcript property of the SpeechRecognitionAlternative object
-        speechResult.push(event.results[0][0].transcript);
-        increment = increment + 1;
-        outputPara.textContent = transcript + ' ' + speechResult[increment] + ' ';
-        console.log(speechResult);
+  recognition.onresult = function() {
+    // The SpeechRecognitionEvent results property returns a SpeechRecognitionResultList object
+    // The SpeechRecognitionResultList object contains SpeechRecognitionResult objects.
+    // It has a getter so it can be accessed like an array
+    // The first [0] returns the SpeechRecognitionResult at position 0.
+    // Each SpeechRecognitionResult object contains SpeechRecognitionAlternative objects that contain individual results.
+    // These also have getters so they can be accessed like arrays.
+    // The second [0] returns the SpeechRecognitionAlternative at position 0.
+    // We then return the transcript property of the SpeechRecognitionAlternative object
+    speechResult.push(event.results[0][0].transcript);
+    increment = increment + 1;
+    outputPara.textContent = transcript + ' ' + speechResult[increment] + ' ';
+    console.log(speechResult);
+  }
+  recognition.onspeechend = function() {
+    outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';
+    recognition.stop();
+    startBtn.disabled = false;
+    // startBtn.textContent = 'Start new test';
+    startBtn.onclick = function(){
+        $('#microphone').find('i').addClass('fa-phone');
+        $('#microphone').find('i').removeClass('fa-phone-slash');
+        recurse = false;
+        callStatus.innerHTML = "Start Call";
+        console.log("Finally it stopped!");
+        startBtn.disabled = true;
     }
     recognition.onspeechend = function () {
         outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';

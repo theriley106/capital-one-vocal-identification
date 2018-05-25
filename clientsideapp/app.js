@@ -25,11 +25,6 @@ app.use(cookieParser());
 app.use(stylus.middleware(path.join(__dirname, 'public')));
 app.use(express.static(__dirname + '/public'));
 
-srv = app.listen(process.env.PORT)
-app.use('/peerjs', require('peer').ExpressPeerServer(srv, {
-	debug: true
-}))
-
 app.use('/', index);
 app.use('/agent', agent);
 app.use('/customer', customer);
