@@ -68,12 +68,6 @@ header{
     padding-bottom: 40px;
 }
 
-#call-status{
-    font-size: 20px;
-    margin-left: 25%;
-    margin-right: 25%;
-}
-
 #language-selection{
     padding-top: 40px;
     padding-bottom: 50px;
@@ -96,7 +90,7 @@ header{
   text-align: center;
 }
 
-#record p{
+#call-status{
   margin-top: 0.5%;
   font-size: 1em;
 }
