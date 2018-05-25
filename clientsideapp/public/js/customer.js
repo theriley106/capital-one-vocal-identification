@@ -193,8 +193,12 @@ $(startBtn).click(function() {
         $('#microphone').find('i').addClass('fa-microphone');
         $('#microphone').find('i').removeClass('fa-microphone-slash');
         reset = true;
+<<<<<<< HEAD
         callTimer.textContent = "00:00:00";
         callStatus.innerHTML = "Start speaking";
+=======
+        callStatus.innerHTML = "Start Call";
+>>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7
         startBtn.css("background-color", "green");
     }
     if(reset){

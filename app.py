@@ -84,7 +84,12 @@ def generateUpdate():
 	if request.method == 'POST':
 		try:
 			print request.form
-			text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
+			#text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
+			text = str(request.form).partition("'text', ")[2]
+			if '"' in str(text)[:5]:
+				text = text.partition('"')[2].partition(")]")[0][:-1]
+			else:
+				text = text.partition("'")[2].partition(")]")[0][:-1]
 			partGenerateAudio(text)
 			with open('updates.txt', 'w') as the_file:
 				the_file.write(text)
@@ -118,26 +123,49 @@ def splitWords(string):
 
 @app.route('/getAudio', methods=["POST"])
 def generateAudio():
+	try:
+		os.system("rm *.mp3")
+		os.system("rm static/output.mp3")
+	except:
+		pass
 	allFiles = {"audio_files": []}
 	print str(request.form)
-	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition(")]")[0][:-1]
+	text = str(request.form).partition("'text', ")[2]
+	if '"' in str(text)[:5]:
+		text = text.partition('"')[2].partition(")]")[0][:-1]
+	else:
+		text = text.partition("'")[2].partition(")]")[0][:-1]
+
 	print text
 	for val in splitWords(text)[::-1]:
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
-	for i, val in enumerate(allFiles['audio_files']):
-		saveMP3(val, "{}.mp3".format(i))
-	os.system("mp3wrap output.mp3 *.mp3")
-	os.system("mv *MP3WRAP.mp3 static/output.mp3")
-	return jsonify(allFiles)
+	if len(allFiles['audio_files']) == 1:
+		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
+	else:
+		for i, val in enumerate(allFiles['audio_files']):
+			saveMP3(val, "{}.mp3".format(i))
+		os.system("mp3wrap output.mp3 *.mp3")
+		os.system("mv *MP3WRAP.mp3 static/output.mp3")
+		os.system('ls')
+	return allFiles
 
 def partGenerateAudio(text):
+	try:
+		os.system("rm *.mp3")
+		os.system("rm static/output.mp3")
+	except:
+		pass
 	allFiles = {"audio_files": []}
 	for val in splitWords(text)[::-1]:
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
-	for i, val in enumerate(allFiles['audio_files']):
-		saveMP3(val, "{}.mp3".format(i))
-	os.system("mp3wrap output.mp3 *.mp3")
-	os.system("mv *MP3WRAP.mp3 static/output.mp3")
+	if len(allFiles['audio_files']) == 1:
+		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
+	else:
+		for i, val in enumerate(allFiles['audio_files']):
+			saveMP3(val, "{}.mp3".format(i))
+		os.system("mp3wrap output.mp3 *.mp3")
+		os.system("mv *MP3WRAP.mp3 static/output.mp3")
+		os.system('ls')
 	return allFiles
 
 def saveMP3(mp3URL, fileName):
@@ -155,4 +183,4 @@ def audio():
 
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=8000)
+	app.run(host='0.0.0.0', port=8000, threaded=True)

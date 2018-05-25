@@ -113,8 +113,12 @@ body{
 
 #logo{
     max-height: 50px;
+    max-width: 400px;
+    padding-left: 5%;
 }
 
 #sentiment{
     text-align: center;
 }
+
+

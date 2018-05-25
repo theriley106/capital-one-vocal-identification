@@ -15,7 +15,7 @@
 
 
   <body>
-    <header>
+    <!-- <header>
       <img id="profile-picture" src="/images/Capture.PNG" class="rounded">
       <div id="customer" class="align-middle">
         Harshil Shah
@@ -23,8 +23,22 @@
       <div id="customer-language" class="align-middle">
         - English
       </div>
-    </header>
-
+    </header> -->
+    <header class="row">
+        <div id="wrapper" class="col align-self-start">
+          <img id="logo" src="/images/logo.png" align="left">
+        </div>
+        <div class="col align-self-center">
+          <img id="profile-picture" src="/images/Capture.PNG" class="rounded">
+          <div id="customer" class="align-middle">
+            Harshil Shah
+          </div>
+          <div id="customer-language" class="align-middle">
+            - English
+          </div>
+        </div>
+        <div class="col align-self-end"></div>
+      </header>
     <nav class="nav nav-pills nav-fill tabs">
       <a class="nav-item nav-link" id="infoButton" href="#" onclick="showInfo()">Customer Information</a>
       <a class="nav-item nav-link" id="requestButton" href="#" onclick="showRequest()">Customer Request</a>
@@ -87,14 +101,24 @@
         </div>
       </div>
 
+
+
+
+
       <div id="callTimer" class="row justify-content-center">
         <time>00:00:00</time>
       </div>
+
       <div id="record">
         <button id="microphone" style="background-color:green">
           <i class="fas fa-microphone"></i>
         </button>
+<<<<<<< HEAD
         <p id="call-status">Start speaking</p>
+=======
+        <p id="call-status">Start call</p>
+
+>>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7
       </div>
 
       <!-- <div>
@@ -115,6 +139,13 @@
           </select>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+      <div id="sentiment">Sentiment: 0</div>
+      <div class="justify-content-center">
+        <p id="output"></p>
+      </div>
+>>>>>>> b437eea2d536e747cc3a35efadb5894ea67beba7
       <!--Scripts-->
       <script type="text/javascript" src="js/customer.js"></script>
 
