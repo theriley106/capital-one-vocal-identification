@@ -4,7 +4,7 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 
 var outputPara = document.querySelector('#output');
 
-var startBtn = document.querySelector('#start-button');
+var startBtn = document.querySelector('#microphone');
 
 var callStatus = document.querySelector('#call-status');
 
@@ -19,6 +19,9 @@ function updateText(text) {
 function testSpeech() {
   startBtn.disabled = true;
   callStatus.innerHTML = "End Call";
+  startBtn.style.backgroundColor = "red";
+  $('#microphone').find('i').addClass('fa-phone-slash');
+  $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
   var language = document.getElementById("langSelect").value;
   var recognition = new SpeechRecognition();
@@ -54,6 +57,8 @@ function testSpeech() {
     startBtn.disabled = false;
     // startBtn.textContent = 'Start new test';
     startBtn.onclick = function(){
+        $('#microphone').find('i').addClass('fa-phone');
+        $('#microphone').find('i').removeClass('fa-phone-slash');
         recurse = false;
         callStatus.innerHTML = "Start Call";
         console.log("Finally it stopped!");
