@@ -78,7 +78,7 @@ def generateComment():
 	return jsonify(tempDict)
 
 @app.route('/updates', methods=["GET", "POST"])
-def generateComment():
+def generateUpdate():
 	if request.method == 'POST':
 		try:
 			g = str(request.form).split("\n\n")
