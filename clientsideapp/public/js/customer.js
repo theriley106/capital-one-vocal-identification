@@ -10,10 +10,15 @@ var callStatus = document.querySelector('#call-status');
 var callTimer = document.querySelector('#callTimer');
 
 var seconds = 0, minutes = 0, hours = 0, t;
+var reset = false;
+var doTimer = 0;
 
 var recurse = false;
 var isTranscribing = false;
 var transcript = '';
+var sentimentCount = 0;
+var sentimentVal = 0;
+var avgSentiment = 0;
 
 var lang = document.getElementById("langSelect");
 
@@ -29,9 +34,6 @@ function testSpeech() {
   $('#microphone').find('i').addClass('fa-phone-slash');
   $('#microphone').find('i').removeClass('fa-phone');
 //   startBtn.textContent = 'Test in progress';
-/* Start timer */
-callTimer.textContent = "00:00:00";
-seconds = 0; minutes = 0; hours = 0;
 
   var language = document.getElementById("langSelect").value;
 
@@ -103,6 +105,14 @@ seconds = 0; minutes = 0; hours = 0;
           },
       }).done(function(resp) {
           console.log(resp);
+          sentiment = resp.sentiment;
+          sentimentVal = sentiment + sentimentVal;
+          sentimentCount = sentimentCount + 1;
+          console.log(sentimentVal);
+          console.log(sentimentCount);
+          avgSentiment = sentimentVal/sentimentCount;
+          document.getElementsByClassName("sentiment")[0].innerHTML = avgSentiment;
+
       });
       if(recurse){
       testSpeech();
@@ -157,6 +167,17 @@ function timer() {
 
 $(startBtn).click(function() {
     console.log('clicked');
+    if(doTimer%2===0){
+        console.log("SHOULD BE TIMING");
+        /* Start timer */
+        callTimer.textContent = "00:00:00";
+        seconds = 0; minutes = 0; hours = 0;
+        timer();
+        doTimer = doTimer + 1;
+    } else {
+        doTimer = doTimer + 1;
+    }
+
     recurse = !recurse;
     console.log(recurse);
     if(!recurse){
@@ -171,14 +192,18 @@ $(startBtn).click(function() {
     }
 
     else {
+        $('#microphone').find('i').addClass('fa-phone');
+        $('#microphone').find('i').removeClass('fa-phone-slash');
+        callStatus.innerHTML = "Start Call";
+        startBtn.css("background-color", "#1f9c25");
+        reset = true;
         callStatus.innerHTML = "Start Call";
         startBtn.css("background-color", "green");
-
+    }
+    if(reset){
+        clearTimeout(t);
+        reset = false;
+        console.log("reset");
     }
     testSpeech();
-    timer();
-
-
-
-
 });
