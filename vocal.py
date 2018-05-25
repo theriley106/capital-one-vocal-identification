@@ -14,6 +14,7 @@ def generateURL(keyWords, region):
 	keyWords = keyWords.decode('unicode-escape').encode('utf8')
 	keyWords = keyWords.encode('string-escape').replace("\\x", "%")
 	print keyWords
+	keywords = str(keyWords).replace(", ", "\u")
 	keyWords = keyWords.upper()
 	url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q={}&tl={}".format(keyWords, region.decode("utf-8").lower())
 	keyWords = keyWords.replace(" ", "%20")
