@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Hello World - Support</title>
+    <title id='page-id'>Hello World - Support</title>
     <link rel="icon" type="image/png" sizes="32x32" href="//cdn.shopify.com/s/files/1/1765/5971/t/10/assets/favicon-32x32.png?9610605222100492220">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -136,7 +136,7 @@
   </div>
 
     <script>
-      read();
+      //read();
       var recording = true;
       document.getElementById("requestButton").style.backgroundColor = "#4f92ff";
       document.getElementById("requestButton").style.color = "white";
@@ -160,33 +160,70 @@
         document.getElementById("infoButton").style.backgroundColor = "white";
         document.getElementById("infoButton").style.color = "#4f92ff";
       }
-      function read() {
-        var text = null;
-        $.ajax({
-            url: 'http://104.236.71.248:8000/updates',
-            type: 'GET',
-            data: text
-        }).done(function(resp){
-          var lang = "Hindi";
-          document.getElementById("customer-language").innerHTML = ' - ' + lang;
-        });
-      }
-
-    function translate(text, language) {
-      $.ajax({
-          url: 'http://104.236.71.248:8000/updates',
-          type: 'POST',
-          data: {
-            text: text,
-            lang: language
-          },
-      }).done(function(resp) {
-        customer_lang=resp.language;
-          document.getElementById("original_text").innerHTML=resp.original_text;
-          document.getElementById("agent-translation").innerHTML=resp.new_text;
-        //alert(this.response);
-      });
+    //   function read() {
+    //     var text = null;
+    //     $.ajax({
+    //         url: 'http://104.236.71.248:8000/updates',
+    //         type: 'GET',
+    //         data: text
+    //     }).done(function(resp){
+    //       var lang = "Hindi";
+    //       document.getElementById("customer-language").innerHTML = ' - ' + lang;
+    //     });
+    //   }
+    //
+    // function translate(text, language) {
+    //   $.ajax({
+    //       url: 'http://104.236.71.248:8000/updates',
+    //       type: 'POST',
+    //       data: {
+    //         text: text,
+    //         lang: language
+    //       },
+    //   }).done(function(resp) {
+    //     customer_lang=resp.language;
+    //       document.getElementById("original_text").innerHTML=resp.original_text;
+    //       document.getElementById("agent-translation").innerHTML=resp.new_text;
+    //     //alert(this.response);
+    //   });
+    // }
+    function playSound(url){
+      var audio = document.createElement('audio');
+      audio.style.display = "none";
+      audio.src = url;
+      audio.autoplay = true;
+      audio.onended = function(){
+        audio.remove() //Remove when played.
+      };
+      document.body.appendChild(audio);
     }
+
+    function httpGet(theUrl)
+    // The network request grabs the json containing mp3 structure
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+      console.log("Works")
+
+      jsonString = httpGet("http://104.236.71.248:8000/updates");
+      // This is the actual file structure
+      obVal = JSON.parse(jsonString);
+      var obj = obVal.text;
+      var prevVal = String(obj);
+      setInterval(function(){
+        let music = document.getElementById('music');
+        jsonString = httpGet("http://104.236.71.248:8000/updates");
+      obVal = JSON.parse(jsonString);
+      var obj = obVal.text;
+      console.log(obj);
+      if (String(prevVal) != String(obj)){
+        playSound('http://104.236.71.248:8000/static/output.mp3?ch=' + String(parseInt((Math.random() * ((900000000 - 1) + 1)))));
+      }
+      prevVal = String(obj);
+    }, 3000);
 
     </script>
   </body>
