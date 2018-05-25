@@ -114,10 +114,12 @@ def splitWords(string):
 
 
 @app.route('/getAudio', methods=["POST"])
-def generateUpdate():
+def generateAudio():
+	allFiles = {"audio_files": []}
 	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
-
-
+	for val in splitWords(text):
+		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', text), 'en'))
+	return jsonfiy(allFiles)
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8000)
