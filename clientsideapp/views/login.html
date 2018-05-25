@@ -13,14 +13,22 @@
       <!-- Latest compiled JavaScript -->
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script>
-        //function validateForm() {
-        //    var email = document.forms["login_form"]["email_field"].value;
-        //    var password = document.forms["login_form"]["password_field"].value;
-        //    if (email == "" || password == "") {
-        //        alert("Please fill out all the fields");
-        //        return false;
-        //    }
-        //}
+        function validateformdata(){
+          var email = document.getElementById("login").elements[0].value;
+          var password = document.getElementById("login").elements[1].value;
+          var customer = document.getElementById("login").elements[2].checked;
+          var agent = document.getElementById("login").elements[3].checked;
+          
+          if(email != "" && password != "" && customer){
+            window.location = "http://localhost:9090/customer";
+          }
+          else if(email != "" && password != "" && agent){
+            window.location = "http://localhost:9090/agent";
+          }
+          
+        }
+
+          
       </script>
     </head>
 
@@ -40,7 +48,13 @@
           <label for="exampleInputPassword1" id="password-label">Password</label>
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-primary" id="submit-button"><a href="agent">Submit</a></button>
+        <div id="roles" class="form-group">
+            <input type="radio" style = "padding:10px;" id="r1"  name="role" value="customer"> Customer
+            <input type="radio" style = "padding:10px;" id="r2" name="role" value="agent"> Agent
+          </div>
+          
+       
+      <button type="submit" class="btn btn-primary" id="submit-button" onclick="validateformdata()">Submit</button>
         <button type="submit" class="btn btn-secondary"><a href="signup">Sign Up</a></button>
       </form>
     </body>
