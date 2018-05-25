@@ -143,7 +143,7 @@ def generateAudio():
 
 	print text
 	for val in splitWords(text):
-		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
+		allFiles['audio_files'].append(vocal.generateURL(str(val), 'en'))
 	if len(allFiles['audio_files']) == 1:
 		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
 	else:
@@ -163,7 +163,7 @@ def partGenerateAudio(text, languageVal='en'):
 	allFiles = {"audio_files": []}
 	for val in splitWords(text):
 		print re.sub(r'([^\s\w]|_)+', '', val)
-		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), languageVal))
+		allFiles['audio_files'].append(vocal.generateURL(str(val), languageVal))
 	if len(allFiles['audio_files']) == 1:
 		saveMP3(allFiles['audio_files'][0], "static/output.mp3")
 	else:
