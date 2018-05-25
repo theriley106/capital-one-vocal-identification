@@ -118,7 +118,7 @@ def generateAudio():
 	allFiles = {"audio_files": []}
 	text = str(request.form).partition("'text', ")[2].partition("'")[2].partition("'")[0]
 	for val in splitWords(text):
-		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', text), 'en'))
+		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
 	return jsonify(allFiles)
 
 if __name__ == '__main__':
