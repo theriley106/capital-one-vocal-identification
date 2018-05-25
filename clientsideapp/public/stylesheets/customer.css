@@ -8,16 +8,24 @@ header{
   text-align: center;
   padding-top: 25px;
   padding-bottom: 17.5px;
-  -webkit-box-shadow: 0 8px 6px -6px #999;
+  /*-webkit-box-shadow: 0 8px 6px -6px #999;
   -moz-box-shadow: 0 8px 6px -6px #999;
-  box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;*/
+  background: #FFF;
+}
+
+body {
+  background: #004879 !important;
+}
+.main {
+  color: #FFF;
 }
 
 #customer{
   color:  #4f92ff;
 }
 
-#customer-language{
+#customer-language {
   font-weight: lighter;
 }
 
@@ -39,6 +47,7 @@ header{
   width: 75px;
   height: 75px;
   outline: none;
+  border: 1px solid #FFF;
 }
 
 #customer-id{

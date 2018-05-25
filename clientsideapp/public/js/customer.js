@@ -15,6 +15,7 @@ var doTimer = 0;
 
 var recurse = false;
 var isTranscribing = false;
+var isRecognizing = false;
 var transcript = '';
 var sentimentCount = 0;
 var sentimentVal = 0;
@@ -38,13 +39,14 @@ function testSpeech() {
   var language = document.getElementById("langSelect").value;
 
   var speechRecognitionList = new SpeechGrammarList();
-
+  
   recognition.grammars = speechRecognitionList;
   recognition.lang = language;
   recognition.interimResults = true;
   recognition.maxAlternatives = 0;
-
+  
   recognition.start();
+  isRecognizing = true;
   var speechResult = [];
   var increment = -1;
 
@@ -65,14 +67,14 @@ function testSpeech() {
 
   recognition.onspeechend = function() {
 
-    recognition.stop();
+    stopRecognition();
     // startBtn.textContent = 'Start new test';
 
 
 }
 
     recognition.onspeechend = function () {
-        recognition.stop();
+        stopRecognition();
         // startBtn.textContent = 'Start new test';
 
     }
@@ -104,15 +106,13 @@ function testSpeech() {
           },
       }).done(function(resp) {
           console.log(resp);
-          sentiment = resp.sentiment;
+          /*sentiment = resp.sentiment;
           sentimentVal = sentiment + sentimentVal;
           sentimentCount = sentimentCount + 1;
           console.log(sentimentVal);
           console.log(sentimentCount);
           avgSentiment = sentimentVal/sentimentCount;
-          sentPara.textContent = avgSentiment.toFixed(2);
-
-
+          sentPara.textContent = "Sentiment: " + avgSentiment.toFixed(2);*/
       });
       if(recurse){
       testSpeech();
@@ -165,18 +165,21 @@ function timer() {
     t = setTimeout(add, 1000);
 }
 
+function stopRecognition() {
+    isRecognizing = false;
+    recognition.stop();
+}
+
 $(startBtn).click(function() {
-    console.log('clicked');
-    if(doTimer%2===0){
-        console.log("SHOULD BE TIMING");
+    if (doTimer % 2 === 0) {
+        //console.log("SHOULD BE TIMING");
         /* Start timer */
         callTimer.textContent = "00:00:00";
         seconds = 0; minutes = 0; hours = 0;
         timer();
-        doTimer = doTimer + 1;
-    } else {
-        doTimer = doTimer + 1;
     }
+
+    doTimer++;
 
     recurse = !recurse;
     console.log(recurse);
@@ -186,22 +189,27 @@ $(startBtn).click(function() {
     if(recurse){
       $('#microphone').find('i').removeClass('fa-microphone');
       $('#microphone').find('i').addClass('fa-microphone-slash');
-        callStatus.innerHTML = "Stop speaking";
+        callStatus.innerHTML = "Stop Speaking";
         startBtn.css("background-color", "red");
-    }
-
-    else {
+    } else {
+        recognition.stop();
         $('#microphone').find('i').addClass('fa-microphone');
         $('#microphone').find('i').removeClass('fa-microphone-slash');
         reset = true;
+<<<<<<< HEAD
         callTimer.textContent = "00:00:00";
         callStatus.innerHTML = "Start speaking";
+=======
+        callStatus.innerHTML = "Start Speaking";
+>>>>>>> cda32daef8cefa966b29f6163c661f94209905fe
         startBtn.css("background-color", "green");
     }
+
     if(reset){
         clearTimeout(t);
         reset = false;
-        console.log("reset");
+        //console.log("reset");
     }
+
     testSpeech();
 });

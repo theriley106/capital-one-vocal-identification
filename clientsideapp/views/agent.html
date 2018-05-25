@@ -49,7 +49,7 @@
       <div id="description">
         <ul class="list-group">
           <li class="list-group-item">
-            <h5 class="mb-1 d-inline-flex align-middle">Account number: </h5>
+            <h5 class="mb-1 d-inline-flex align-middle">Account Number: </h5>
             <span class="list-text d-inline-flex align-middle">669219443321</span>
           </li>
           <li class="list-group-item">
@@ -65,7 +65,7 @@
             <span class="list-text d-inline-flex align-middle">PA</span>
           </li>
           <li class="list-group-item">
-            <h5 class="mb-1 d-inline-flex align-middle">Zip code: </h5>
+            <h5 class="mb-1 d-inline-flex align-middle">Zip Code: </h5>
             <span class="list-text d-inline-flex align-middle">16046</span>
           </li>
         </ul>
@@ -74,12 +74,12 @@
       <div id="description">
         <ul class="list-group">
           <li class="list-group-item">
-            <h5 class="mb-1 d-inline-flex align-middle">Card number: </h5>
+            <h5 class="mb-1 d-inline-flex align-middle">Card Number: </h5>
             <span class="list-text d-inline-flex align-middle">4420 3900 2211 0910</span>
           </li>
           <li class="list-group-item">
             <h5 class="mb-1 d-inline-flex align-middle">Balance: </h5>
-            <span class="list-text d-inline-flex align-middle" style="color:red">$1,000,000</span>
+            <span class="list-text d-inline-flex align-middle">$1,000,000</span>
           </li>
         </ul>
       </div>
@@ -109,7 +109,11 @@
         <button id="microphone" style="background-color:green">
           <i class="fas fa-microphone"></i>
         </button>
+<<<<<<< HEAD
         <p id="call-status">Start speaking</p>
+=======
+        <p id="call-status">Start Speaking</p>
+>>>>>>> cda32daef8cefa966b29f6163c661f94209905fe
       </div>
 
       <!-- <div>
@@ -130,6 +134,13 @@
           </select>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+      <div id="sentiment">Sentiment: 0</div>
+      <div class="justify-content-center">
+        <p id="output"></p>
+      </div>
+>>>>>>> cda32daef8cefa966b29f6163c661f94209905fe
       <!--Scripts-->
       <script type="text/javascript" src="js/customer.js"></script>
 
@@ -167,9 +178,15 @@
             type: 'GET',
             data: text
         }).done(function(resp){
+<<<<<<< HEAD
           document.getElementById("customer-language").innerHTML = ' - ' + resp.lang;
           console.log(document.getElementById("langSelect").value)
           translate(resp.text, document.getElementById("langSelect").value)
+=======
+          var lang = resp.lang === undefined ? 'English' : resp.lang;
+          document.getElementById("customer-language").innerHTML = ' - ' + lang;
+          translate(resp.text, "en");
+>>>>>>> cda32daef8cefa966b29f6163c661f94209905fe
         });
       }
 
