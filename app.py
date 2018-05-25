@@ -8,6 +8,7 @@ from flask_cors import CORS
 from werkzeug.datastructures import ImmutableMultiDict
 import re
 import requests
+import os
 
 
 COMMENTS = json.load(open("data.json"))
@@ -124,6 +125,8 @@ def generateAudio():
 		allFiles['audio_files'].append(vocal.generateURL(re.sub(r'([^\s\w]|_)+', '', val), 'en'))
 	for i, val in enumerate(allFiles['audio_files']):
 		saveMP3(val, "{}.mp3".format(i))
+	os.system("mp3wrap output.mp3 *.mp3")
+	os.system("mv *MP3WRAP.mp3 static/output.mp3")
 	return jsonify(allFiles)
 
 def saveMP3(mp3URL, fileName):
@@ -134,6 +137,8 @@ def saveMP3(mp3URL, fileName):
 		#this saves the response locally as an actual mp3 file
 		f.write(requests.get(mp3URL).content)
 	return mp3File
+
+
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8000)
