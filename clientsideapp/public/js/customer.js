@@ -111,6 +111,7 @@ function testSpeech() {
           console.log(sentimentVal);
           console.log(sentimentCount);
           avgSentiment = sentimentVal/sentimentCount;
+          document.getElementsByClassName("sentiment")[0].innerHTML = avgSentiment;
 
       });
       if(recurse){
@@ -191,14 +192,10 @@ $(startBtn).click(function() {
     }
 
     else {
-<<<<<<< HEAD
         $('#microphone').find('i').addClass('fa-phone');
         $('#microphone').find('i').removeClass('fa-phone-slash');
         callStatus.innerHTML = "Start Call";
         startBtn.css("background-color", "#1f9c25");
-
-
-=======
         reset = true;
         callStatus.innerHTML = "Start Call";
         startBtn.css("background-color", "green");
@@ -207,7 +204,6 @@ $(startBtn).click(function() {
         clearTimeout(t);
         reset = false;
         console.log("reset");
->>>>>>> 0ee60508acb23d433f0535dfd5a6a804fd7a2fc5
     }
     testSpeech();
 });
