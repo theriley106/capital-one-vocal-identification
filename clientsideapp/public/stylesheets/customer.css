@@ -15,17 +15,12 @@
     align-content:center;
 }
 
-.mic{
+#microphone{
     border-radius: 50%;
-    background: #4286f4;
+    background: #1f9c25;
     text-align: center;
     padding: 20px 20px;
     color: #ffffff;
-}
-
-#language-selection{
-    text-align:center;
-    align-content:center;
 }
 
 #mic-icon{
@@ -38,6 +33,7 @@
 }
 
 #call-status{
+    font-size: 20px;
     min-width: 65px;
     min-height: 35px;
     margin: auto;
@@ -46,6 +42,9 @@
 #language-selection{
     padding-top: 40px;
     padding-bottom: 50px;
+    background: "white";
+    text-align:center;
+    align-content:center;
 }
 
 #output{

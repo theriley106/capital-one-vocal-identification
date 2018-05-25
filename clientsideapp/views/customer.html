@@ -1,59 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!--Style Sheet-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
-      crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-      crossorigin="anonymous">
-    <link rel="stylesheet" href="/stylesheets/customer.css">
-    <link rel="stylesheet" href="/stylesheets/main.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <title>Client-Side Call</title>
-  </head>
-  <body>
-    <div id="content" class="container">
-      <div class="row justify-content-center">
-        <img id="customer-pic" src="/images/default-profile.png">
-      </div>
-      <div class="row justify-content-center">
-        <div class="col">
-          <p id="customer-id" class="col">Adam Schueller</p>
-        </div>
 
-        <!-- <button id="start-button">Start Call</button> -->
-        <!-- <button id="stop-button">End Call</button> -->
-      </div>
-      <div id="record">
-        <button id="microphone" style="background-color:green">
-          <i class="fas fa-phone"></i>
-        </button>
-        <p id="call-status">Start call</p>
+<head>
+  <!--Style Sheet-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+    crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="/stylesheets/main.css"> -->
+  <link rel="stylesheet" href="/stylesheets/customer.css">
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <title>Client-Side Call</title>
+</head>
+
+<body>
+  <div id="content" class="container">
+    <div class="row justify-content-center">
+      <img id="customer-pic" src="/images/default-profile.png">
+    </div>
+    <div class="row justify-content-center">
+      <div class="col">
+        <p id="customer-id" class="col">Adam Schueller</p>
       </div>
 
-      <!-- <div>
+      <!-- <button id="start-button">Start Call</button> -->
+      <!-- <button id="stop-button">End Call</button> -->
+    </div>
+    <div id="record" class="row justify-content-center">
+      <button id="microphone">
+        <i class="fas fa-phone"></i>
+      </button>
+    </div>
+    <div id="record" class="row justify-content-center">
+      <p id="call-status">Start call</p>
+    </div>
+
+    <!-- <div>
           <p class="phrase">Phrase...</p>
           <p class="result">Right or wrong?</p>
           <p class="output">...diagnostic messages</p>
       </div> -->
-      <div class="row justify-content-center">
-        <div id="language-selection" class="col">
-          <label>Language: </label>
-          <select id="langSelect">
-            <option value="da">Danish</option>
-            <option value="en">English</option>
-            <option value="fr">French</option>
-            <option value="de">German</option>
-            <option value="hi">Hindi</option>
-            <option value="es">Spanish</option>
-          </select>
-        </div>
+    <div class="row justify-content-center">
+      <div id="language-selection" class="col">
+        <label>Language: </label>
+        <select id="langSelect">
+          <option value="da">Danish</option>
+          <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="hi">Hindi</option>
+          <option value="es">Spanish</option>
+        </select>
       </div>
     </div>
-    <div class = "row justify-content-center">
-        <p id = "output"></p>
+    <div class="row justify-content-center">
+      <p id="output"></p>
     </div>
+  </div>
   </div>
   <!--Scripts-->
   <script type="text/javascript" src="/js/customer.js"></script>

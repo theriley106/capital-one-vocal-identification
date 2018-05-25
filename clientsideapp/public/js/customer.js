@@ -64,18 +64,6 @@ function testSpeech() {
         console.log("Finally it stopped!");
         startBtn.disabled = true;
     }
-    recognition.onspeechend = function () {
-        outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';
-        recognition.stop();
-        startBtn.disabled = false;
-        // startBtn.textContent = 'Start new test';
-        startBtn.onclick = function () {
-            recurse = false;
-            callStatus.innerHTML = "Begin Call";
-            mic.style.background = "#4286f4";
-            console.log("Finally it stopped!");
-            startBtn.disabled = true;
-        }
         if (recurse) {
             testSpeech();
         }
