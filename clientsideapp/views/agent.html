@@ -34,7 +34,7 @@
             Harshil Shah
           </div>
           <div id="customer-language" class="align-middle">
-            - English
+            - Hindi
           </div>
         </div>
         <div class="col align-self-end"></div>
@@ -97,7 +97,7 @@
           <h5>Agent</h5>
           <div id="label" class="text-muted">Original text</div><p id="output"></p>
           <hr class="my-2">
-          <div id="label" class="text-muted">Translation</div><p id="agent-translation"></p>
+          <div id="label" class="text-muted">Translation</div><p id="agent-translation" class="phrase"></p>
         </div>
       </div>
 
@@ -118,7 +118,7 @@
             <p class="output">...diagnostic messages</p>
         </div> -->
       <div class="justify-content-center" style="text-align: center">
-        <div id="language-selection" class="col">
+        <div id="languagSelect" class="col">
           <label>Language: </label>
           <select id="langSelect">
             <option value="da">Danish</option>
@@ -167,9 +167,8 @@
             type: 'GET',
             data: text
         }).done(function(resp){
-          var lang = resp.lang === undefined ? 'English' : resp.lang;
+          var lang = "Hindi";
           document.getElementById("customer-language").innerHTML = ' - ' + lang;
-          translate(resp.text, "en");
         });
       }
 
@@ -184,7 +183,7 @@
       }).done(function(resp) {
         customer_lang=resp.language;
           document.getElementById("original_text").innerHTML=resp.original_text;
-          document.getElementById("translated_text").innerHTML=resp.new_text;
+          document.getElementById("agent-translation").innerHTML=resp.new_text;
         //alert(this.response);
       });
     }
