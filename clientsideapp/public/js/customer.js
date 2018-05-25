@@ -4,19 +4,25 @@ var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEv
 
 var outputPara = document.querySelector('#output');
 
-var startBtn = document.querySelector('#start-button');
+var startBtn = document.querySelector('#microphone');
+
+var callStatus = document.querySelector('#call-status');
 
 var recurse = true;
 
 var transcript = '';
 
 function updateText(text) {
-  document.getElementsByClassName("phrase")[0].innerHTML = text;
+    document.getElementsByClassName("phrase")[0].innerHTML = text;
 }
 
 function testSpeech() {
   startBtn.disabled = true;
-  startBtn.textContent = 'Test in progress';
+  callStatus.innerHTML = "End Call";
+  startBtn.style.backgroundColor = "red";
+  $('#microphone').find('i').addClass('fa-phone-slash');
+  $('#microphone').find('i').removeClass('fa-phone');
+//   startBtn.textContent = 'Test in progress';
   var language = document.getElementById("langSelect").value;
   var recognition = new SpeechRecognition();
   var speechRecognitionList = new SpeechGrammarList();
@@ -49,72 +55,77 @@ function testSpeech() {
     outputPara.textContent = speechResult + ' ' + outputPara.textContent + ' ';
     recognition.stop();
     startBtn.disabled = false;
-    startBtn.textContent = 'Start new test';
+    // startBtn.textContent = 'Start new test';
     startBtn.onclick = function(){
+        $('#microphone').find('i').addClass('fa-phone');
+        $('#microphone').find('i').removeClass('fa-phone-slash');
         recurse = false;
+        callStatus.innerHTML = "Start Call";
+        startBtn.style.backgroundColor = "green";
         console.log("Finally it stopped!");
         startBtn.disabled = true;
     }
-    if(recurse){
-        testSpeech();
+        if (recurse) {
+            testSpeech();
+        }
+
     }
 
-}
+    recognition.onerror = function (event) {
+        startBtn.disabled = false;
+        // startBtn.textContent = 'Start new test';
+        // outputPara.textContent = 'Call Timed Out:' + event.error;
+    }
 
-  recognition.onerror = function(event) {
-    startBtn.disabled = false;
-    startBtn.textContent = 'Start new test';
-    outputPara.textContent = 'Call Timed Out:' + event.error;
-  }
+    recognition.onaudiostart = function (event) {
 
-  recognition.onaudiostart = function(event) {
-      //Fired when the user agent has started to capture audio.
-      console.log('SpeechRecognition.onaudiostart');
-  }
+        //Fired when the user agent has started to capture audio.
+        console.log('SpeechRecognition.onaudiostart');
+    }
 
-  recognition.onaudioend = function(event) {
-      //Fired when the user agent has finished capturing audio.
-      console.log('SpeechRecognition.onaudioend');
-  }
+    recognition.onaudioend = function (event) {
+        //Fired when the user agent has finished capturing audio.
+        console.log('SpeechRecognition.onaudioend');
+    }
 
-  recognition.onend = function(event) {
-      //Fired when the speech recognition service has disconnected.
-      transcript = outputPara.textContent + '. ';
-      var xhr=new XMLHttpRequest();
-      xhr.open('post',"192.168.12.10:5000",true);
-      //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");<--don't do this
-      var formData=new FormData(form);
-      formData.append('info',transcript);    // makes no difference
-      xhr.send(formData);
-      xhr.onload=function() {
-          alert(this.response);
-      };
-      console.log('SpeechRecognition.onend');
-  }
+    recognition.onend = function (event) {
+        //Fired when the speech recognition service has disconnected.
+        transcript = outputPara.textContent + '. ';
+        var xhr = new XMLHttpRequest();
+        xhr.open('post', "http://172.20.28.113:5000", true);
+        //xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");<--don't do this
+        var formData = new FormData();
+        formData.append('info', transcript);    // makes no difference
+        xhr.send(formData);
+        xhr.onload = function () {
+            alert(this.response);
+        };
+        console.log('SpeechRecognition.onend');
+    }
 
-  recognition.onnomatch = function(event) {
-      //Fired when the speech recognition service returns a final result with no significant recognition. This may involve some degree of recognition, which doesn't meet or exceed the confidence threshold.
-      console.log('SpeechRecognition.onnomatch');
-  }
+    recognition.onnomatch = function (event) {
+        //Fired when the speech recognition service returns a final result with no significant recognition. This may involve some degree of recognition, which doesn't meet or exceed the confidence threshold.
+        console.log('SpeechRecognition.onnomatch');
+    }
 
-  recognition.onsoundstart = function(event) {
-      //Fired when any sound � recognisable speech or not � has been detected.
-      console.log('SpeechRecognition.onsoundstart');
-  }
+    recognition.onsoundstart = function (event) {
+        //Fired when any sound � recognisable speech or not � has been detected.
+        console.log('SpeechRecognition.onsoundstart');
+    }
 
-  recognition.onsoundend = function(event) {
-      //Fired when any sound � recognisable speech or not � has stopped being detected.
-      console.log('SpeechRecognition.onsoundend');
-  }
+    recognition.onsoundend = function (event) {
+        //Fired when any sound � recognisable speech or not � has stopped being detected.
+        console.log('SpeechRecognition.onsoundend');
+    }
 
-  recognition.onspeechstart = function (event) {
-      //Fired when sound that is recognised by the speech recognition service as speech has been detected.
-      console.log('SpeechRecognition.onspeechstart');
-  }
-  recognition.onstart = function(event) {
-      //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
-      console.log('SpeechRecognition.onstart');
-  }
+    recognition.onspeechstart = function (event) {
+        //Fired when sound that is recognised by the speech recognition service as speech has been detected.
+        console.log('SpeechRecognition.onspeechstart');
+    }
+    recognition.onstart = function (event) {
+        //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
+        console.log('SpeechRecognition.onstart');
+    }
 }
 
 startBtn.addEventListener('click', testSpeech);
