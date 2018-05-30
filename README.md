@@ -3,6 +3,14 @@ Speaker Recognition/Identification
 
 <p align="center">
   <img src="static/slideOne.png"/>
+  <br>
+  <img src="static/login.png"/>
+  <br>
+  <img src="static/customer.png"/>
+  <br>
+  <img src="static/agent.png"/>
+  <br>
+  <img src="static/agent2.png"/>
 </p>
 
 # Running the Web App
