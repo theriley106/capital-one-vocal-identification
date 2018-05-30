@@ -90,9 +90,10 @@ def generateUpdate():
 				text = text.partition('"')[2].partition(")]")[0][:-1]
 			else:
 				text = text.partition("'")[2].partition(")]")[0][:-1]
-			tempText = text
 			languageVal = text.partition("| ")[2].partition("'")[0].partition('"')[0].strip()
 			text = text.partition('|')[0]
+			tempText = text
+			vocal.translateText(text, languageVal)
 			print text
 			print languageVal
 			text = vocal.translateText(text, languageVal)

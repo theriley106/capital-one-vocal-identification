@@ -1,6 +1,10 @@
 # capital-one-vocal-identification
 Speaker Recognition/Identification
 
+<p align="center">
+  <img src="static/slideOne.png"/>
+</p>
+
 # Running the Web App
 All commands run witin the `clientsideapp` directory.
 
