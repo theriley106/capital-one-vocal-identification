@@ -23,25 +23,7 @@ All commands run witin the `clientsideapp` directory.
 
 ## REST API
 
-### Current Features
-
-- Keyword Extraction
-
-- Language Detection
-
-- Confidence of Language Detection
-
-- Translation
-
-- Custom Message (Ie: No Form data, etc.)
-
-- Original Text (Said by the User)
-
-- New Text (Translated Text)
-
-- Sentiment Polarity (-1 -> 1)
-
-- Request Processing Time
+### Examples
 
 ```javascript
 // POST Request to /submitSpeech
@@ -116,3 +98,23 @@ All commands run witin the `clientsideapp` directory.
     "word_count": 56
 }
 ```
+
+### Current Features
+
+- Keyword Extraction
+
+- Language Detection
+
+- Confidence of Language Detection
+
+- Translation
+
+- Custom Message (Ie: No Form data, etc.)
+
+- Original Text (Said by the User)
+
+- New Text (Translated Text)
+
+- Sentiment Polarity (-1 -> 1)
+
+- Request Processing Time
